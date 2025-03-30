@@ -1,32 +1,58 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Travel Budget Planner 
+The Travel Budget Planner application is a Python tool created to assist the user in working out if they have enough money in their budget to book an overseas holiday. 
 
-Welcome,
+The user inputs required information for the tool to calculate the total cost, remainder of budget and whether you have enough left over for daily spending. 
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **May 14, 2024**
+!!Click here to access the live project.
 
-## Reminders
+## User Experience
+The purpose of this programme is to assist a user in deciding if they have the finances in place to book a holiday abroad. Based on the responses it clarified and repeats back to the user the relevant information to decided if they have enough within their budget to go ahead and book or to take some time to save up a bit more. 
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+The programme is aimed at adults of all ages who are considering booking a holiday but unsure if their budget will allow for all the required expenses and also leave enough spending money at the end. 
 
-## Creating the Heroku app
+### User Stories
+* "I'm planning my first trip and researching holiday options, but I'm unsure if my current savings will be enough to afford it."
+* "There are a lot of different expenses attributed to planning my next holiday and I want to use something that can help me organize and display the breakdown of the expenses"
+* "I'm not very good with calculations and just want to be able to input in all the amounts and get an itemized response that clearly explains if I have enough in my budget or not"
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+#### User Goals 
+* Simple and straightforward questions
+* Clear and concise result that displays the end results and whether or not the budget will allow for the trip. 
+* an itemized breakdown of the various types of expenses
 
-1. `heroku/python`
-2. `heroku/nodejs`
+## How does it work?
+Initially users input information about their budget and length of their trip. Next they are prompted to input a type of expense, the cost of the expense and to select which category it falls within. The pre-set categories include flights, accommodation, travel insurance, transfers, excursions and an open category named miscellaneous. 
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+Once all the required information has been entered it is repeated back to the user for clarity. In addition a running total of the expenses by Category is displayed. The user is then prompted to consider if they wish to add further expenses. If answered yes the questions loop back to the type, cost and category questions and if answered no the final results are displayed.
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+The final results include the running total of expenses by category, the amount left from the budget after considering these expenses and also how much that would work out as remaining spend per day. Finally a message is displayed to the user dependant on the comparison between the calculated daily spend allowance against the amount initially inputted in the first set of questions. 
 
-Connect your GitHub repository and deploy as normal.
+## Features
+During the planning stages of my project, I utilized Lucidchart.com to brain storm and plan the algorithm which would be required to prepare for the flow of the programme.
+![screenshot of Lucidchart algorithm](/documentation/lucid_chart_algo.webp) 
 
-## Constraints
+### Existing Features
+### Future Features
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+## Data Model
 
----
+## Technologies used 
+### Languages Used 
+* Python
+### Frameworks, Libraries & Programmes Used
+* [Lucidchart](https://www.lucidchart.com/pages) - to map and plan the flow of the app
+* [Github](https://github.com/) - For version control 
+* VS Code - used as the code editor and to save files
 
-Happy coding!
+## Testing 
+### Bugs 
+### Validator Testing 
+
+## Deployment 
+
+## Credits
+### Code Used 
+### Content
+### Media
+### Documentation and Testing
+### Acknowledgements
