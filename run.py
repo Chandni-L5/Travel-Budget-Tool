@@ -82,6 +82,30 @@ def length_of_travel():
             print()
 
 
+def spending_money():
+    """
+    This function gets the spending money from the user
+    and returns it as a float
+    """
+    while True:
+        print()
+        spending = input("How much spending money do you require per day? £")
+        try:
+            spending = float(spending)
+            if spending <= 0:
+                print()
+                print("Please enter a number greater than 0")
+                print()
+                continue
+            return spending
+        except ValueError:
+            print()
+            print(
+                (
+                    "Invalid input - Please enter a valid number in the "
+                    "following format: 10.00"
+                )
+            )
 # def type_of_expense():
 #     """
 #     This function gets the type of expense from the user
@@ -112,14 +136,16 @@ def main():
     console.print(welcome, style="bold #15E6E4", justify="center")
     begin = get_content('intro.txt')
     console.print(begin, style="#9DE635", justify="center")
-    budget = get_budget()
-    duration = length_of_travel()
-    console.print(
-        f"Your travel budget is £{budget:,.2f}, you plan to travel for "
-        f"{duration} days.",
-        style="#9DE635",
-        justify="center"
-    )
+    # budget = get_budget()
+    # duration = length_of_travel()
+    # initial_spending = spending_money()
+    # console.print(
+    #     f"Your travel budget is £{budget:,.2f}, you plan to travel for "
+    #     f"{duration} days and ideally you would like to have £"
+    #     f"{initial_spending:,.2f} to spend per day.",
+    #     style="#9DE635",
+    #     justify="center"
+    # )
 
     # type of expense?
     # expense amount?
