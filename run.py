@@ -36,7 +36,6 @@ def get_budget():
     while True:
         print()
         budget = input("What is your travel budget? £")
-        print()
         try:
             budget = float(budget)
             if budget <= 0:
@@ -50,17 +49,60 @@ def get_budget():
             print(
                 (
                     "Invalid input - Please enter a valid number in the "
-                    "following format: 1000.00 /n"
+                    "following format: 1000.00"
                 )
             )
             print()
-# length of travel?
-# type of expense?
-# expense amount?
-# select a category
-# do you want to add more expenses?
-# result
-# restart
+
+
+def length_of_travel():
+    """
+    This function gets the length of travel from the user
+    and returns it as an integer
+    """
+    while True:
+        print()
+        length = input("What is the length of your travel in days? ")
+        try:
+            length = int(length)
+            if length <= 0:
+                print()
+                print("Please enter a number greater than 0")
+                print()
+                continue
+            return length
+        except ValueError:
+            print()
+            print(
+                (
+                    "Invalid input - Please enter a valid number in the "
+                    "following format: 10"
+                )
+            )
+            print()
+
+
+# def type_of_expense():
+#     """
+#     This function gets the type of expense from the user
+#     and returns it as a string
+#     """
+
+
+# def expense_amount():
+#     """
+#     This function gets the expense amount from the user
+#     and returns it as a float
+#     """
+
+# def select_category():
+#     """
+#     This function gets the category of expense from the user
+#     """
+
+# def any_more(): # do you want to add more expenses?
+# # result
+# # restart
 
 
 def main():
@@ -71,9 +113,14 @@ def main():
     begin = get_content('intro.txt')
     console.print(begin, style="#9DE635", justify="center")
     budget = get_budget()
-    console.print(f"Your travel budget is £{budget:,.2f}.")
-    # what is your travel budget?
-    # length of travel?
+    duration = length_of_travel()
+    console.print(
+        f"Your travel budget is £{budget:,.2f}, you plan to travel for "
+        f"{duration} days.",
+        style="#9DE635",
+        justify="center"
+    )
+
     # type of expense?
     # expense amount?
     # select a category
