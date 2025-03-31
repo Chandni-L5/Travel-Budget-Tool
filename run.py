@@ -8,6 +8,7 @@ console = Console()
 Enable use of rich library for console output
 """
 
+
 welcome = Padding(
     (
         ":airplane_departure: Welcome to your Travel Budget Planner "
@@ -19,7 +20,7 @@ welcome = Padding(
 
 def get_content(file):
     """
-    Displays the introductory text about the content of this programme
+    Reads the content of a file and returns it as a string
     """
     intro = open(file, 'r')
     content = intro.read()
@@ -27,7 +28,39 @@ def get_content(file):
     return content
 
 
-begin = get_content('intro.txt')
+def get_budget():
+    """
+    This function gets the travel budget from the user
+    and returns it as a float
+    """
+    while True:
+        print()
+        budget = input("What is your travel budget? £")
+        print()
+        try:
+            budget = float(budget)
+            if budget <= 0:
+                print()
+                print("Please enter a number greater than 0")
+                print()
+                continue
+            return budget
+        except ValueError:
+            print()
+            print(
+                (
+                    "Invalid input - Please enter a valid number in the "
+                    "following format: 1000.00 /n"
+                )
+            )
+            print()
+# length of travel?
+# type of expense?
+# expense amount?
+# select a category
+# do you want to add more expenses?
+# result
+# restart
 
 
 def main():
@@ -35,9 +68,17 @@ def main():
     Main function to run the programme
     """
     console.print(welcome, style="bold #15E6E4", justify="center")
-    # displays the welcome message
+    begin = get_content('intro.txt')
     console.print(begin, style="#9DE635", justify="center")
-    # displays the introductory text
+    budget = get_budget()
+    console.print(f"Your travel budget is £{budget:,.2f}.")
+    # what is your travel budget?
+    # length of travel?
+    # type of expense?
+    # expense amount?
+    # select a category
+    # do you want to add more expenses?
+    # restart
 
 
 main()
