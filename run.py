@@ -28,31 +28,39 @@ def get_content(file):
     return content
 
 
+def get_input(
+    question,
+    value_type,
+    min_value=None,
+    error="Please enter a valid number greater than 0"
+):
+    """
+    This function gets input from the user
+    """
+    while True:
+        print()
+        user_input = input(question)
+        try:
+            value = value_type(user_input)
+            if value <= min_value:
+                print(f"\n{error}\n")
+                continue
+            return value
+        except ValueError:
+            print(f"\nInvalid input - {error}\n")
+
+
 def get_budget():
     """
     This function gets the travel budget from the user
     and returns it as a float
     """
-    while True:
-        print()
-        budget = input("What is your travel budget? £")
-        try:
-            budget = float(budget)
-            if budget <= 0:
-                print()
-                print("Please enter a number greater than 0")
-                print()
-                continue
-            return budget
-        except ValueError:
-            print()
-            print(
-                (
-                    "Invalid input - Please enter a valid number in the "
-                    "following format: 1000.00"
-                )
-            )
-            print()
+    return get_input(
+        question="What is your travel budget? £",
+        value_type=float,
+        error="Please enter a number greater than 0",
+        min_value=0
+    )
 
 
 def length_of_travel():
@@ -60,26 +68,12 @@ def length_of_travel():
     This function gets the length of travel from the user
     and returns it as an integer
     """
-    while True:
-        print()
-        length = input("What is the length of your travel in days? ")
-        try:
-            length = int(length)
-            if length <= 0:
-                print()
-                print("Please enter a number greater than 0")
-                print()
-                continue
-            return length
-        except ValueError:
-            print()
-            print(
-                (
-                    "Invalid input - Please enter a valid number in the "
-                    "following format: 10"
-                )
-            )
-            print()
+    return get_input(
+        question="What is the length of your travel in days? ",
+        value_type=int,
+        error="Please enter a number greater than 0",
+        min_value=0
+    )
 
 
 def spending_money():
@@ -87,25 +81,13 @@ def spending_money():
     This function gets the spending money from the user
     and returns it as a float
     """
-    while True:
-        print()
-        spending = input("How much spending money do you require per day? £")
-        try:
-            spending = float(spending)
-            if spending <= 0:
-                print()
-                print("Please enter a number greater than 0")
-                print()
-                continue
-            return spending
-        except ValueError:
-            print()
-            print(
-                (
-                    "Invalid input - Please enter a valid number in the "
-                    "following format: 10.00"
-                )
-            )
+    return get_input(
+        question="How much spending money do you require per day? £",
+        value_type=float,
+        error="Please enter a number greater than 0",
+        min_value=0
+    )
+
 # def type_of_expense():
 #     """
 #     This function gets the type of expense from the user
@@ -136,16 +118,16 @@ def main():
     console.print(welcome, style="bold #15E6E4", justify="center")
     begin = get_content('intro.txt')
     console.print(begin, style="#9DE635", justify="center")
-    # budget = get_budget()
-    # duration = length_of_travel()
-    # initial_spending = spending_money()
-    # console.print(
-    #     f"Your travel budget is £{budget:,.2f}, you plan to travel for "
-    #     f"{duration} days and ideally you would like to have £"
-    #     f"{initial_spending:,.2f} to spend per day.",
-    #     style="#9DE635",
-    #     justify="center"
-    # )
+    budget = get_budget()
+    duration = length_of_travel()
+    initial_spending = spending_money()
+    console.print(
+        f"Your travel budget is £{budget:,.2f}, you plan to travel for "
+        f"{duration} days and ideally you would like to have £"
+        f"{initial_spending:,.2f} to spend per day.",
+        style="#9DE635",
+        justify="center"
+    )
 
     # type of expense?
     # expense amount?
