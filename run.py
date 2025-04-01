@@ -145,6 +145,30 @@ def amount():
         )
 
 
+def expense_category():
+    category = [
+        "✈️ Flights/Transport",
+        "🏨 Accommodation",
+        "🚤 Excursions",
+        "✨ Miscellaneous",
+    ]
+    while True:
+        print("Please select a category: ")
+        for i, category_option in enumerate(category):
+            print(f"  {i + 1}. {category_option}")
+
+        value_range = f"[1 - {len(category)}]"
+        try:
+            selected_index = int(input(f"Enter a category number {value_range}: ")) - 1
+            if selected_index not in range(len(category)):
+                raise ValueError  # Handle out-of-range numbers
+            break  # Exit the loop if the selection is valid
+        except ValueError:
+            print(f"Invalid input. Please enter a number between 1 and {len(category)}.")
+
+    return category[selected_index]  # Return the selected category
+
+
 def main():
     """
     Main function to run the programme
@@ -171,7 +195,7 @@ def main():
 
     expense_type()
     amount()
-
+    expense_category()
     # type of expense?
     # expense amount?
     # select a category
