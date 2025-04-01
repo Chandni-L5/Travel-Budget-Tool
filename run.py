@@ -43,7 +43,10 @@ def get_input(
         try:
             value = value_type(user_input)
             if value_type == str:
-                continue
+                if user_input.isdigit() or user_input == "":
+                    print(f"\n{error}\n")
+                    continue
+                return user_input
             elif value <= min_value:
                 print(f"\n{error}\n")
                 continue
@@ -141,6 +144,7 @@ def main():
     )
     expense_type()
     amount()
+
     # type of expense?
     # expense amount?
     # select a category
