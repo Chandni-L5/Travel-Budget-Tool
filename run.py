@@ -51,12 +51,12 @@ def get_input(
                 )
                 or (isinstance(value, (int, float)) and value <= min_value)
             ):
-                print(f"\n{error}\n")
+                console.print(f"\n{error}\n")
                 continue
             return value
 
         except ValueError:
-            print(f"\nInvalid input - {error}\n")
+            console.print(f"\nInvalid input - {error}\n")
 
 
 def get_budget():
@@ -111,7 +111,7 @@ def confirm_details():
         if confirmation in ["y", "n"]:
             return confirmation == "y"  # True for "Y", False for "N"
 
-        print("\nInvalid input. Please enter 'Y' for Yes or 'N' for No.")
+        print("\nInvalid input. Please enter 'Y' for Yes or 'N' for No.\n")
 
 
 def expense_type():
@@ -138,14 +138,17 @@ def amount():
     as a float
     """
     return get_input(
-            question="\nEnter the amount of the expense e.g 100.00: £",
+            question="\nEnter the amount of the expense e.g 100.00: £\n",
             value_type=float,
-            error="Please enter a valid amount",
+            error="\nPlease enter a valid amount\n",
             min_value=0,
         )
 
 
 def expense_category():
+    """
+    This function gets the category of the expense from the user
+    """
     category = [
         "✈️ Flights/Transport",
         "🏨 Accommodation",
@@ -153,20 +156,23 @@ def expense_category():
         "✨ Miscellaneous",
     ]
     while True:
-        print("Please select a category: ")
+        console.print("\nPlease select a category: \n")
         for i, category_option in enumerate(category):
-            print(f"  {i + 1}. {category_option}")
-
+            console.print(f"  {i + 1}. {category_option}")
         value_range = f"[1 - {len(category)}]"
         try:
-            selected_index = int(input(f"Enter a category number {value_range}: ")) - 1
+            selected_index = int(input(
+                f"\nEnter a category number {value_range}: \n"
+            )) - 1
             if selected_index not in range(len(category)):
-                raise ValueError  # Handle out-of-range numbers
-            break  # Exit the loop if the selection is valid
+                raise ValueError
+            break
         except ValueError:
-            print(f"Invalid input. Please enter a number between 1 and {len(category)}.")
-
-    return category[selected_index]  # Return the selected category
+            print(
+                f"\nInvalid input. Please enter a number"
+                f"between 1 and {len(category)}./n"
+            )
+    return category[selected_index]
 
 
 def main():
@@ -181,7 +187,6 @@ def main():
         budget = get_budget()
         duration = length_of_travel()
         initial_spending = spending_money()
-
         console.print(
             f"Your travel budget is £{budget:,.2f}, you plan to travel for "
             f"{duration} days and ideally you would like to have £"
@@ -189,18 +194,10 @@ def main():
             style="#9DE635",
             justify="center",
         )
-
         if confirm_details():
             break
 
-    expense_type()
-    amount()
-    expense_category()
-    # type of expense?
-    # expense amount?
-    # select a category
-    # do you want to add more expenses?
-    # restart
+    expenses = expense_type(), amount(), expense_category(),
 
 
 main()
