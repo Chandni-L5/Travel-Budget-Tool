@@ -120,8 +120,6 @@ def expense_type():
     and returns it as a string, the expense amount as a float and
     the category of the expense
     """
-    console.print("The next set of questions will be about your expenses.")
-    console.print("You can enter multiple expenses if you wish.")
     return get_input(
         question=(
             "Enter a description of the expense "
@@ -197,7 +195,35 @@ def main():
         if confirm_details():
             break
 
-    expenses = expense_type(), amount(), expense_category(),
+    console.print("The next set of questions will be about your expenses.")
+    console.print("You can enter multiple expenses if you wish.")
+
+    expense_totals = {
+        "✈️ Flights/Transport": 0,
+        "🏨 Accommodation": 0,
+        "🚤 Excursions": 0,
+        "✨ Miscellaneous": 0,
+    }
+
+    while True:
+        description = expense_type()
+        cost = amount()
+        category = expense_category()
+
+        expense_totals[category] += cost
+
+        console.print("\nCurrent expense totals by category:")
+        for cat, total in expense_totals.items():
+            console.print(f"{cat}: £{total:,.2f}", style="bold green")
+
+        # Ask if the user wants to add another expense
+        add_more = input(
+            "\nDo you want to add another expense? (Y/N): "
+            ).strip().lower()
+        if add_more != "y":
+            break
+
+    # expenses = expense_type(), amount(), expense_category(),
 
 
 main()
