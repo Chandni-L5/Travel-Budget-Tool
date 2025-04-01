@@ -22,7 +22,7 @@ def get_content(file):
     """
     Reads the content of a file and returns it as a string
     """
-    with open(file, "r") as f:
+    with open(file, "r", encoding="utf-8") as f:
         return f.read()
 
 
@@ -204,6 +204,7 @@ def main():
         "🚤 Excursions": 0,
         "✨ Miscellaneous": 0,
     }
+    total_expenses = 0
 
     while True:
         description = expense_type()
@@ -211,6 +212,7 @@ def main():
         category = expense_category()
 
         expense_totals[category] += cost
+        total_expenses += cost
 
         console.print(
             f"\nYou have added an expense of £{cost:,.2f} for {description} "
@@ -221,14 +223,36 @@ def main():
         for cat, total in expense_totals.items():
             console.print(f"{cat}: £{total:,.2f}", style="bold green")
 
-        # Ask if the user wants to add another expense
         add_more = input(
             "\nDo you want to add another expense? (Y/N): "
             ).strip().lower()
         if add_more != "y":
             break
-
-    # expenses = expense_type(), amount(), expense_category(),
+    if add_more == "n":
+        remaining_budget = budget - total_expenses
+        console.print(
+            f"\nYour total expenses are £{total_expenses:,.2f}."
+            f"\nYou have £{remaining_budget:,.2f} left to spend on your trip."
+            f"\nYou can spend £{remaining_budget / duration:,.2f} per day.",
+            style="bold #9DE635",
+            justify="center",
+        )
+    remaining_budget_per_day = remaining_budget / duration
+    if remaining_budget_per_day > 0:
+        console.print(
+            "\nPack your bags and get ready for your trip! 🧳 ",
+            style="bold orange",
+        )
+    else:
+        console.print(
+            "\nUnfortunately, your expenses have exceeded your budget. ",
+            style="bold red",
+        )
+    console.print(
+        "\nThank you for using the Travel Budget Planner!"
+        "\nWe hope to see you again soon!",
+        style="bold #9DE635", justify="center"
+    )
 
 
 main()
