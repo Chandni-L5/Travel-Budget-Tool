@@ -212,6 +212,11 @@ def main():
 
         expense_totals[category] += cost
 
+        console.print(
+            f"\nYou have added an expense of £{cost:,.2f} for {description} "
+            f"under the category {category}.",
+            style="bold #9DE635",
+        )
         console.print("\nCurrent expense totals by category:")
         for cat, total in expense_totals.items():
             console.print(f"{cat}: £{total:,.2f}", style="bold green")
