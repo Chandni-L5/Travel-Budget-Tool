@@ -33,22 +33,28 @@ def get_input(
     error="Please enter a valid number greater than 0",
 ):
     """
-    This function gets input from the user
+    This function gets input from the user and
+    throws an error if the input is not valid
     """
     while True:
         print()
-        user_input = input(question)
+        user_input = input(question).strip()
+
         try:
             value = value_type(user_input)
-            if value_type == str:
-                if user_input.isdigit() or user_input == "":
-                    print(f"\n{error}\n")
-                    continue
-                return user_input
-            elif value <= min_value:
+
+            if (
+                (value_type == str and user_input.isdigit())
+                or (
+                    isinstance(value, (int, float))
+                    and not user_input.replace('.', '', 1).isdigit()
+                )
+                or (isinstance(value, (int, float)) and value <= min_value)
+            ):
                 print(f"\n{error}\n")
                 continue
             return value
+
         except ValueError:
             print(f"\nInvalid input - {error}\n")
 
