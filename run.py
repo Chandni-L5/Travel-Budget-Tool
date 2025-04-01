@@ -98,6 +98,22 @@ def spending_money():
     )
 
 
+def confirm_details():
+    """
+    This function asks the user to confirm if their travel details are correct.
+    Returns True if they confirm (Y), False if they want to restart (N).
+    """
+    while True:
+        confirmation = input(
+            "\nAre these details correct? (Y/N): "
+        ).strip().lower()
+
+        if confirmation in ["y", "n"]:
+            return confirmation == "y"  # True for "Y", False for "N"
+
+        print("\nInvalid input. Please enter 'Y' for Yes or 'N' for No.")
+
+
 def expense_type():
     """
     This function gets the type of expense from the user
@@ -136,16 +152,23 @@ def main():
     console.print(welcome, style="bold #15E6E4", justify="center")
     begin = get_content("intro.txt")
     console.print(begin, style="#9DE635", justify="center")
-    budget = get_budget()
-    duration = length_of_travel()
-    initial_spending = spending_money()
-    console.print(
-        f"Your travel budget is £{budget:,.2f}, you plan to travel for "
-        f"{duration} days and ideally you would like to have £"
-        f"{initial_spending:,.2f} to spend per day.",
-        style="#9DE635",
-        justify="center",
-    )
+
+    while True:
+        budget = get_budget()
+        duration = length_of_travel()
+        initial_spending = spending_money()
+
+        console.print(
+            f"Your travel budget is £{budget:,.2f}, you plan to travel for "
+            f"{duration} days and ideally you would like to have £"
+            f"{initial_spending:,.2f} to spend per day.",
+            style="#9DE635",
+            justify="center",
+        )
+
+        if confirm_details():
+            break
+
     expense_type()
     amount()
 
