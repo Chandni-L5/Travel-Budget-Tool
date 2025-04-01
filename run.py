@@ -22,10 +22,8 @@ def get_content(file):
     """
     Reads the content of a file and returns it as a string
     """
-    intro = open(file, "r")
-    content = intro.read()
-    intro.close()
-    return content
+    with open(file, "r") as f:
+        return f.read()
 
 
 def get_input(
