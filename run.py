@@ -173,6 +173,106 @@ def subsequent_questions():
     return description, cost, category[selected_index]
 
 
+def track_expenses(budget, duration):
+    """
+    This function tracks the expenses
+    """
+    expense_totals = {
+        "✈️ Flights/Transport": 0,
+        "🏨 Accommodation": 0,
+        "🚤 Excursions": 0,
+        "✨ Miscellaneous": 0,
+    }
+    total_expenses = 0
+
+    while True:
+        description, cost, category = subsequent_questions()
+
+        expense_totals[category] += cost
+        total_expenses += cost
+
+        display_added_expense(description, cost, category, expense_totals)
+        if not add_more_expenses():
+            break
+    final_summary(budget, duration, total_expenses)
+
+
+def display_added_expense(description, cost, category, expense_totals):
+    """
+    This function displays a summary of the expense added
+    and also updates the running total per
+    category
+    """
+    console.print(
+        f"\nYou have added an expense of £{cost:,.2f} for {description} "
+        f"under the category {category}.",
+        style="bold #9DE635",
+    )
+    console.print("\nCurrent expense totals by category:")
+    for cat, total in expense_totals.items():
+        console.print(f"{cat}: £{total:,.2f}", style="bold green")
+
+
+def add_more_expenses():
+    """
+    This function asks the user if they want to add more expenses
+    """
+    while True:
+        add_more = input(
+            "\nDo you want to add another expense? (Y/N): "
+        ).strip().lower()
+        if add_more == "y":
+            return True
+        elif add_more == "n":
+            return False
+        else:
+            console.print(
+                "\nInvalid input. Please enter 'Y'"
+                "for Yes or 'N' for No.\n", style="bold red"
+            )
+
+
+def final_summary(budget, duration, total_expenses):
+    """
+    This function displays the final summary of the expenses
+    """
+    remaining_budget = budget - total_expenses
+    console.print(
+        f"\nYour total expenses are £{total_expenses:,.2f}."
+        f"\nYou have £{remaining_budget:,.2f} left to "
+        f"spend on your trip."
+        f"\nYou can spend £{remaining_budget / duration:,.2f}"
+        f"per day.",
+        style="bold #9DE635",
+        justify="center",
+    )
+    exit_message(remaining_budget, duration)
+
+
+def exit_message(remaining_budget, duration):
+    """
+    This function displays the final message and conclusion
+    of the programme.
+    """
+    remaining_budget_per_day = remaining_budget / duration
+    if remaining_budget_per_day > 0:
+        console.print(
+            "\nPack your bags and get ready for your trip! 🧳 ",
+            style="bold",
+        )
+    else:
+        console.print(
+            "\nUnfortunately, your expenses "
+            "have exceeded your budget. ",
+            style="bold red",
+        )
+    console.print(
+        "\nThank you for using the Travel Budget Planner!"
+        "\nWe hope to see you again soon!",
+        style="bold #9DE635", justify="center"
+    )
+
+
 def main():
     """
     Main function to run the programme
@@ -191,70 +291,7 @@ def main():
         style="#9DE635",
         justify="center"
         )
-
-    expense_totals = {
-        "✈️ Flights/Transport": 0,
-        "🏨 Accommodation": 0,
-        "🚤 Excursions": 0,
-        "✨ Miscellaneous": 0,
-    }
-    total_expenses = 0
-
-    while True:
-        description, cost, category = subsequent_questions()
-
-        expense_totals[category] += cost
-        total_expenses += cost
-
-        console.print(
-            f"\nYou have added an expense of £{cost:,.2f} for {description} "
-            f"under the category {category}.",
-            style="bold #9DE635",
-        )
-        console.print("\nCurrent expense totals by category:")
-        for cat, total in expense_totals.items():
-            console.print(f"{cat}: £{total:,.2f}", style="bold green")
-
-        while True:
-            add_more = input(
-                "\nDo you want to add another expense? (Y/N): "
-                ).strip().lower()
-            if add_more == "y":
-                break
-            elif add_more == "n":
-                remaining_budget = budget - total_expenses
-                console.print(
-                    f"\nYour total expenses are £{total_expenses:,.2f}."
-                    f"\nYou have £{remaining_budget:,.2f} left to "
-                    f"spend on your trip."
-                    f"\nYou can spend £{remaining_budget / duration:,.2f}"
-                    f"per day.",
-                    style="bold #9DE635",
-                    justify="center",
-                )
-                remaining_budget_per_day = remaining_budget / duration
-                if remaining_budget_per_day > 0:
-                    console.print(
-                        "\nPack your bags and get ready for your trip! 🧳 ",
-                        style="bold",
-                    )
-                else:
-                    console.print(
-                        "\nUnfortunately, your expenses "
-                        "have exceeded your budget. ",
-                        style="bold red",
-                    )
-                console.print(
-                    "\nThank you for using the Travel Budget Planner!"
-                    "\nWe hope to see you again soon!",
-                    style="bold #9DE635", justify="center"
-                )
-                exit()
-            else:
-                console.print(
-                    "\nInvalid input. Please enter 'Y'"
-                    "for Yes or 'N' for No.\n", style="bold red"
-                )
+    track_expenses(budget, duration)
 
 
 main()
