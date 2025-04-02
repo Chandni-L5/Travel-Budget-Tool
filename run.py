@@ -1,19 +1,21 @@
 from rich import print
 from rich.padding import Padding
 from rich.console import Console
-import gspread
 from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/documents",
-    "https://www.googleapis.com/auth/drive.file"
+    "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive",
 ]
 
 CREDS = Credentials.from_service_account_file("creds.json", scopes=SCOPE)
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-DOC = GSPREAD_CLIENT.open("travel_budget_summary")
+DOCUMENT_ID = "1ev4aBGg3904TWkGkpIIZq0NqTvKKHihuFNdtoBOZ9Rk"
+DOCS_SERVICE = build("docs", "v1", credentials=SCOPED_CREDS)
 
 
 console = Console()
@@ -96,9 +98,6 @@ def initial_questions():
         min_value=0,
     )
     return budget, duration, spending_money
-    """
-    Return all three values for global use
-    """
 
 
 def display_initial():
@@ -216,14 +215,17 @@ def display_added_expense(description, cost, category, expense_totals):
     and also updates the running total per
     category
     """
-    console.print(
+    expense_summary = (
         f"\nYou have added an expense of £{cost:,.2f} for {description} "
-        f"under the category {category}.",
-        style="bold #9DE635",
+        f"under the category {category}."
     )
-    console.print("\nCurrent expense totals by category:")
+    console.print(expense_summary, style="#9DE635 bold")
+    running_total = ("\nCurrent expense totals by category:")
+    console.print(running_total, style="#9DE635")
     for cat, total in expense_totals.items():
         console.print(f"{cat}: £{total:,.2f}", style="bold green")
+    google_doc(expense_summary)
+    google_doc(running_total)
 
 
 def add_more_expenses():
@@ -247,18 +249,23 @@ def add_more_expenses():
 
 def final_summary(budget, duration, total_expenses):
     """
-    This function displays the final summary of the expenses
+    This function displays the final summary of the expenses and then appends
+    the summary to Google Docs.
     """
     remaining_budget = budget - total_expenses
-    console.print(
+    summary_text = (
         f"\nYour total expenses are £{total_expenses:,.2f}."
         f"\nYou have £{remaining_budget:,.2f} left to "
         f"spend on your trip."
         f"\nYou can spend £{remaining_budget / duration:,.2f}"
-        f"per day.",
+        f" per day."
+    )
+    console.print(
+        summary_text,
         style="bold #9DE635",
         justify="center",
     )
+    google_doc(summary_text)
     exit_message(remaining_budget, duration)
 
 
@@ -284,6 +291,34 @@ def exit_message(remaining_budget, duration):
         "\nWe hope to see you again soon!",
         style="bold #9DE635", justify="center"
     )
+
+
+def google_doc(text):
+    """
+    This function prints the summary to the google doc
+    """
+    document = DOCS_SERVICE.documents().get(documentId=DOCUMENT_ID).execute()
+    document_length = document.get(
+        "body", {}
+        ).get("content", [])[-1]["endIndex"]
+    try:
+        requests = [
+            {
+                "insertText": {
+                    "location": {
+                        "index": document_length - 1
+                        },
+                    "text": text + "\n",
+                }
+            }
+        ]
+        DOCS_SERVICE.documents().batchUpdate(
+            documentId=DOCUMENT_ID,
+            body={"requests": requests}
+        ).execute()
+        print("This summary has been added to Google Doc successfully.")
+    except HttpError as error:
+        print(f"An error occurred: {error}")
 
 
 def main():
