@@ -88,7 +88,7 @@ def initial_questions():
     """
 
 
-def confirm_details():
+def confirm_initial():
     """
     This function asks the user to confirm if their travel details are correct.
     Returns True if they confirm (Y), False if they want to restart (N).
@@ -101,16 +101,18 @@ def confirm_details():
         if confirmation in ["y", "n"]:
             return confirmation == "y"  # True for "Y", False for "N"
 
-        print("\nInvalid input. Please enter 'Y' for Yes or 'N' for No.\n")
+        console.print(
+            "\nInvalid input. Please enter 'Y' for Yes or 'N' for No.\n",
+            style="bold red"
+            )
 
 
-def expense_type():
+def subsequent_questions():
     """
-    This function gets the type of expense from the user
-    and returns it as a string, the expense amount as a float and
-    the category of the expense
+    This function gets the type of expense from the user, cost
+    and category of the expense
     """
-    return get_input(
+    description = get_input(
         question=(
             "Enter a description of the expense "
             "e.g boat trip, booking.com, etc:"
@@ -118,25 +120,12 @@ def expense_type():
         value_type=str,
         error="Please enter a valid type of expense",
     )
-
-
-def amount():
-    """
-    This function gets the amount of the expense from the user and returns
-    as a float
-    """
-    return get_input(
+    cost = get_input(
             question="\nEnter the amount of the expense e.g 100.00: £\n",
             value_type=float,
             error="\nPlease enter a valid amount\n",
             min_value=0,
         )
-
-
-def expense_category():
-    """
-    This function gets the category of the expense from the user
-    """
     category = [
         "✈️ Flights/Transport",
         "🏨 Accommodation",
@@ -156,11 +145,12 @@ def expense_category():
                 raise ValueError
             break
         except ValueError:
-            print(
-                f"\nInvalid input. Please enter a number"
-                f"between 1 and {len(category)}./n"
+            console.print(
+                f"\nInvalid input. Please enter a number between "
+                f"1 and {len(category)}.\n",
+                style="bold red"
             )
-    return category[selected_index]
+    return description, cost, category[selected_index]
 
 
 def main():
@@ -174,17 +164,25 @@ def main():
     while True:
         budget, duration, initial_spending = initial_questions()
         console.print(
-            f"Your travel budget is £{budget:,.2f}, you plan to travel for "
+            f"\nYour travel budget is £{budget:,.2f}, you plan to travel for "
             f"{duration} days and ideally you would like to have £"
             f"{initial_spending:,.2f} to spend per day.",
             style="#9DE635",
             justify="center",
         )
-        if confirm_details():
+        if confirm_initial():
             break
 
-    console.print("The next set of questions will be about your expenses.")
-    console.print("You can enter multiple expenses if you wish.")
+    console.print(
+        "\nThe next set of questions will be about your expenses.",
+        style="#9DE635",
+        justify="center"
+        )
+    console.print(
+        "You can enter multiple expenses if you wish.\n",
+        style="#9DE635",
+        justify="center"
+        )
 
     expense_totals = {
         "✈️ Flights/Transport": 0,
@@ -195,9 +193,7 @@ def main():
     total_expenses = 0
 
     while True:
-        description = expense_type()
-        cost = amount()
-        category = expense_category()
+        description, cost, category = subsequent_questions()
 
         expense_totals[category] += cost
         total_expenses += cost
@@ -211,36 +207,47 @@ def main():
         for cat, total in expense_totals.items():
             console.print(f"{cat}: £{total:,.2f}", style="bold green")
 
-        add_more = input(
-            "\nDo you want to add another expense? (Y/N): "
-            ).strip().lower()
-        if add_more != "y":
-            break
-    if add_more == "n":
-        remaining_budget = budget - total_expenses
-        console.print(
-            f"\nYour total expenses are £{total_expenses:,.2f}."
-            f"\nYou have £{remaining_budget:,.2f} left to spend on your trip."
-            f"\nYou can spend £{remaining_budget / duration:,.2f} per day.",
-            style="bold #9DE635",
-            justify="center",
-        )
-    remaining_budget_per_day = remaining_budget / duration
-    if remaining_budget_per_day > 0:
-        console.print(
-            "\nPack your bags and get ready for your trip! 🧳 ",
-            style="bold orange",
-        )
-    else:
-        console.print(
-            "\nUnfortunately, your expenses have exceeded your budget. ",
-            style="bold red",
-        )
-    console.print(
-        "\nThank you for using the Travel Budget Planner!"
-        "\nWe hope to see you again soon!",
-        style="bold #9DE635", justify="center"
-    )
-
+        while True:
+            add_more = input(
+                "\nDo you want to add another expense? (Y/N): "
+                ).strip().lower()
+            if add_more == "y":
+                break
+            elif add_more == "n":
+                remaining_budget = budget - total_expenses
+                console.print(
+                        f"\nYour total expenses are £{total_expenses:,.2f}."
+                        f"\nYou have £{remaining_budget:,.2f} left"
+                        "to spend on your trip."
+                        f"\nYou can spend £{
+                            remaining_budget / duration:,.2f
+                            } per day.",
+                        style="bold #9DE635",
+                        justify="center",
+                )
+                remaining_budget_per_day = remaining_budget / duration
+                if remaining_budget_per_day > 0:
+                    console.print(
+                        "\nPack your bags and get ready for your trip! 🧳 ",
+                        style="bold",
+                    )
+                else:
+                    console.print(
+                        "\nUnfortunately, your expenses "
+                        "have exceeded your budget. ",
+                        style="bold red",
+                    )
+                console.print(
+                    "\nThank you for using the Travel Budget Planner!"
+                    "\nWe hope to see you again soon!",
+                    style="bold #9DE635", justify="center"
+                )
+                break
+            else:
+                console.print(
+                    "\nInvalid input. Please enter 'Y'"
+                    "for Yes or 'N' for No.\n", style="bold red"
+                )
+                
 
 main()
