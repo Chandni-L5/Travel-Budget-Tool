@@ -88,6 +88,26 @@ def initial_questions():
     """
 
 
+def display_initial():
+    """
+    This function displays the initial travel details
+    and asks the user to confirm them.
+    """
+    while True:
+        budget, duration, spending_money = initial_questions()
+
+        console.print(
+            f"\nYour travel budget is £{budget:,.2f}, you plan to travel for "
+            f"{duration} days and ideally you would like to have £"
+            f"{spending_money:,.2f} to spend per day.",
+            style="#9DE635",
+            justify="center",
+        )
+
+        if confirm_initial():
+            return budget, duration, spending_money
+
+
 def confirm_initial():
     """
     This function asks the user to confirm if their travel details are correct.
@@ -160,19 +180,7 @@ def main():
     console.print(welcome, style="bold #15E6E4", justify="center")
     begin = get_content("intro.txt")
     console.print(begin, style="#9DE635", justify="center")
-
-    while True:
-        budget, duration, initial_spending = initial_questions()
-        console.print(
-            f"\nYour travel budget is £{budget:,.2f}, you plan to travel for "
-            f"{duration} days and ideally you would like to have £"
-            f"{initial_spending:,.2f} to spend per day.",
-            style="#9DE635",
-            justify="center",
-        )
-        if confirm_initial():
-            break
-
+    budget, duration, spending_money = display_initial()
     console.print(
         "\nThe next set of questions will be about your expenses.",
         style="#9DE635",
