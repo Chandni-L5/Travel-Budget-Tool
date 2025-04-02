@@ -59,43 +59,33 @@ def get_input(
             console.print(f"\nInvalid input - {error}\n")
 
 
-def get_budget():
+def initial_questions():
     """
-    This function gets the travel budget from the user
-    and returns it as a float
+    This function asks the user for their travel budget, duration,
+    and spending money whilst using the get_input function.
     """
-    return get_input(
+    budget = get_input(
         question="What is your travel budget? £",
         value_type=float,
         error="Please enter a number greater than 0",
         min_value=0,
     )
-
-
-def length_of_travel():
-    """
-    This function gets the length of travel from the user
-    and returns it as an integer
-    """
-    return get_input(
+    duration = get_input(
         question="What is the length of your travel in days? ",
         value_type=int,
         error="Please enter a number greater than 0",
         min_value=0,
     )
-
-
-def spending_money():
-    """
-    This function gets the spending money from the user
-    and returns it as a float
-    """
-    return get_input(
+    spending_money = get_input(
         question="How much spending money do you require per day? £",
         value_type=float,
         error="Please enter a number greater than 0",
         min_value=0,
     )
+    return budget, duration, spending_money
+    """
+    Return all three values for global use
+    """
 
 
 def confirm_details():
@@ -182,9 +172,7 @@ def main():
     console.print(begin, style="#9DE635", justify="center")
 
     while True:
-        budget = get_budget()
-        duration = length_of_travel()
-        initial_spending = spending_money()
+        budget, duration, initial_spending = initial_questions()
         console.print(
             f"Your travel budget is £{budget:,.2f}, you plan to travel for "
             f"{duration} days and ideally you would like to have £"
