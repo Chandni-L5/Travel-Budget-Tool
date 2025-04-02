@@ -216,14 +216,13 @@ def main():
             elif add_more == "n":
                 remaining_budget = budget - total_expenses
                 console.print(
-                        f"\nYour total expenses are £{total_expenses:,.2f}."
-                        f"\nYou have £{remaining_budget:,.2f} left"
-                        "to spend on your trip."
-                        f"\nYou can spend £{
-                            remaining_budget / duration:,.2f
-                            } per day.",
-                        style="bold #9DE635",
-                        justify="center",
+                    f"\nYour total expenses are £{total_expenses:,.2f}."
+                    f"\nYou have £{remaining_budget:,.2f} left to "
+                    f"spend on your trip."
+                    f"\nYou can spend £{remaining_budget / duration:,.2f}"
+                    f"per day.",
+                    style="bold #9DE635",
+                    justify="center",
                 )
                 remaining_budget_per_day = remaining_budget / duration
                 if remaining_budget_per_day > 0:
@@ -242,12 +241,12 @@ def main():
                     "\nWe hope to see you again soon!",
                     style="bold #9DE635", justify="center"
                 )
-                break
+                exit()
             else:
                 console.print(
                     "\nInvalid input. Please enter 'Y'"
                     "for Yes or 'N' for No.\n", style="bold red"
                 )
-                
+
 
 main()
