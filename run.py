@@ -1,6 +1,8 @@
 from rich import print
 from rich.padding import Padding
 from rich.console import Console
+from rich.table import Table
+from rich import box
 import time
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
@@ -113,6 +115,7 @@ def display_initial():
     """
     while True:
         budget, duration, spending_money = initial_questions()
+        console.print("")
         with console.status(
             "\n[bold green]Calculating...",
             spinner="aesthetic",
@@ -240,6 +243,7 @@ def display_added_expense(description, cost, category, expense_totals):
         f"under the category {category}."
     )
     console.rule("")
+    console.print("")
     with console.status(
         "\n[bold green]Calculating...",
         spinner="aesthetic",
@@ -247,14 +251,17 @@ def display_added_expense(description, cost, category, expense_totals):
     ):
         time.sleep(2)
     console.print(expense_summary, style="color(55) bold")
-    running_total = (
-        "\n[color(170)]Current expense totals by category:[/color(170)]\n"
+    table = Table(
+        title="\n[color(170)]Expense Summary[/color(170)]",
+        box=box.ASCII_DOUBLE_HEAD
     )
-    console.print(running_total, style="color(55)")
+    table.add_column("Category", justify="left")
+    table.add_column("Running Total", justify="right")
     for cat, total in expense_totals.items():
-        console.print(f"{cat}: £{total:,.2f}", style="bold green")
+        table.add_row(f"{cat}", f"£{total:,.2f}", style="color(55)")
+    console.print(table)
     google_doc(expense_summary)
-    google_doc(running_total)
+    google_doc_table(expense_totals)
 
 
 def add_more_expenses():
@@ -282,6 +289,7 @@ def final_summary(budget, duration, total_expenses):
     This function displays the final summary of the expenses and then appends
     the summary to Google Docs.
     """
+    console.print("")
     with console.status(
         "\n[bold green]Calculating...",
         spinner="aesthetic",
@@ -290,24 +298,25 @@ def final_summary(budget, duration, total_expenses):
         time.sleep(2)
     remaining_budget = budget - total_expenses
     summary_text = (
-        f"\nYour total expenses are £{total_expenses:,.2f}."
+        f"\nYour total expenses are £{total_expenses:,.2f}.\n"
         f"\nYou have £{remaining_budget:,.2f} left to "
-        f"spend on your trip."
+        f"spend on your trip.\n"
         f"\nYou can spend £{remaining_budget / duration:,.2f}"
         f" per day.\n"
     )
     console.rule("")
     console.print(
         summary_text,
-        style="bold color(55)",
+        style="color(55)",
     )
-    google_doc(summary_text)
     console.print(
         "\nA summary of your results has been added to Google Doc "
-        "successfully."
-        "\nYou can view it here: [link=https://docs.google.com/document/d/"
+        "successfully - You can view it here: "
+        "[link=https://docs.google.com/document/d/"
         f"{DOCUMENT_ID}/edit]Google Doc[/link]",
         style="color(170)",)
+    console.print("")
+    google_doc(summary_text)
     exit_message(remaining_budget, duration)
 
 
@@ -328,10 +337,12 @@ def exit_message(remaining_budget, duration):
             "have exceeded your budget. ",
             style="bold red",
         )
+    console.print("")
     console.print(
         "\nThank you for using the Travel Budget Planner!"
         "\nWe hope to see you again soon!\n",
         style="bold color(69)",
+        justify="center",
     )
 
 
@@ -360,6 +371,16 @@ def google_doc(text):
         ).execute()
     except HttpError as error:
         print(f"An error occurred: {error}")
+
+
+def google_doc_table(expense_totals):
+    """
+    This function prints the table summary to the google doc
+    """
+    table_text = '\nExpense Summary\n'
+    for category, total in expense_totals.items():
+        table_text += f"{category}: £{total:,.2f}\n"
+    google_doc(table_text)
 
 
 def main():
