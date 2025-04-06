@@ -23,6 +23,7 @@ console = Console()
 """
 Enable use of rich library for console output
 """
+error_console = Console(stderr=True, style="bold red")
 
 
 welcome = Padding(
@@ -67,12 +68,12 @@ def get_input(
                 )
                 or (isinstance(value, (int, float)) and value <= min_value)
             ):
-                console.print(f"\n{error}\n")
+                error_console.print(f"\n{error}\n")
                 continue
             return value
 
         except ValueError:
-            console.print(f"\nInvalid input - {error}\n")
+            error_console.print(f"\nInvalid input - {error}")
 
 
 def initial_questions():
@@ -122,7 +123,6 @@ def display_initial():
             f"{duration} days and ideally you would like to have £"
             f"{spending_money:,.2f} to spend per day.",
             style="#9DE635",
-            justify="center",
         )
 
         if confirm_initial():
@@ -142,7 +142,7 @@ def confirm_initial():
         if confirmation in ["y", "n"]:
             return confirmation == "y"  # True for "Y", False for "N"
 
-        console.print(
+        error_console.print(
             "\nInvalid input. Please enter 'Y' for Yes or 'N' for No.\n",
             style="bold red"
             )
@@ -186,7 +186,7 @@ def subsequent_questions():
                 raise ValueError
             break
         except ValueError:
-            console.print(
+            error_console.print(
                 f"\nInvalid input. Please enter a number between "
                 f"1 and {len(category)}.\n",
                 style="bold red"
@@ -257,7 +257,7 @@ def add_more_expenses():
         elif add_more == "n":
             return False
         else:
-            console.print(
+            error_console.print(
                 "\nInvalid input. Please enter 'Y'"
                 "for Yes or 'N' for No.\n", style="bold red"
             )
@@ -280,7 +280,6 @@ def final_summary(budget, duration, total_expenses):
     console.print(
         summary_text,
         style="bold #9DE635",
-        justify="center",
     )
     google_doc(summary_text)
     exit_message(remaining_budget, duration)
@@ -306,7 +305,7 @@ def exit_message(remaining_budget, duration):
     console.print(
         "\nThank you for using the Travel Budget Planner!"
         "\nWe hope to see you again soon!",
-        style="bold #9DE635", justify="center"
+        style="bold #9DE635",
     )
 
 
@@ -344,19 +343,17 @@ def main():
     """
     console.print(welcome, style="bold #15E6E4", justify="center")
     begin = get_content("intro.txt")
-    console.print(begin, style="#9DE635", justify="center")
+    console.print(begin, style="#9DE635")
     console.rule("")
     budget, duration, spending_money = display_initial()
     console.rule("")
     console.print(
         "\nThe next set of questions will be about your expenses.",
         style="#9DE635",
-        justify="center"
         )
     console.print(
         "You can enter multiple expenses if you wish.\n",
         style="#9DE635",
-        justify="center"
         )
     track_expenses(budget, duration)
 
