@@ -170,7 +170,7 @@ def subsequent_questions():
             min_value=0,
         )
     category = [
-        "\nFlights/Transport",
+        "Flights/Transport",
         "Accommodation",
         "Excursions",
         "Miscellaneous"
@@ -190,8 +190,8 @@ def subsequent_questions():
         value_range = f"[1 - {len(category)}]"
         try:
             selected_index = int(console.input(
-                f"\n[color(202)]Enter a category number {value_range}:"
-                f"[/color(202)] \n"
+                f"\n[color(202)]Enter a category number {value_range}: "
+                f"[/color(202)]"
             )) - 1
             if selected_index not in range(len(category)):
                 raise ValueError
@@ -247,7 +247,9 @@ def display_added_expense(description, cost, category, expense_totals):
     ):
         time.sleep(2)
     console.print(expense_summary, style="color(55) bold")
-    running_total = ("\nCurrent expense totals by category:")
+    running_total = (
+        "\n[color(170)]Current expense totals by category:[/color(170)]\n"
+    )
     console.print(running_total, style="color(55)")
     for cat, total in expense_totals.items():
         console.print(f"{cat}: £{total:,.2f}", style="bold green")
@@ -280,13 +282,19 @@ def final_summary(budget, duration, total_expenses):
     This function displays the final summary of the expenses and then appends
     the summary to Google Docs.
     """
+    with console.status(
+        "\n[bold green]Calculating...",
+        spinner="aesthetic",
+        speed=1.0,
+    ):
+        time.sleep(2)
     remaining_budget = budget - total_expenses
     summary_text = (
         f"\nYour total expenses are £{total_expenses:,.2f}."
         f"\nYou have £{remaining_budget:,.2f} left to "
         f"spend on your trip."
         f"\nYou can spend £{remaining_budget / duration:,.2f}"
-        f" per day."
+        f" per day.\n"
     )
     console.rule("")
     console.print(
@@ -294,6 +302,12 @@ def final_summary(budget, duration, total_expenses):
         style="bold color(55)",
     )
     google_doc(summary_text)
+    console.print(
+        "\nA summary of your results has been added to Google Doc "
+        "successfully."
+        "\nYou can view it here: [link=https://docs.google.com/document/d/"
+        f"{DOCUMENT_ID}/edit]Google Doc[/link]",
+        style="color(170)",)
     exit_message(remaining_budget, duration)
 
 
@@ -316,7 +330,7 @@ def exit_message(remaining_budget, duration):
         )
     console.print(
         "\nThank you for using the Travel Budget Planner!"
-        "\nWe hope to see you again soon!",
+        "\nWe hope to see you again soon!\n",
         style="bold color(69)",
     )
 
@@ -344,7 +358,6 @@ def google_doc(text):
             documentId=DOCUMENT_ID,
             body={"requests": requests}
         ).execute()
-        print("This summary has been added to Google Doc successfully.")
     except HttpError as error:
         print(f"An error occurred: {error}")
 
