@@ -55,7 +55,8 @@ def get_input(
     """
     while True:
         print()
-        user_input = input(question).strip()
+        styled_question = f"[color(166)]{question}[/color(166)]"
+        user_input = console.input(styled_question).strip()
 
         try:
             value = value_type(user_input)
@@ -122,7 +123,7 @@ def display_initial():
             f"\nYour travel budget is £{budget:,.2f}, you plan to travel for "
             f"{duration} days and ideally you would like to have £"
             f"{spending_money:,.2f} to spend per day.",
-            style="#9DE635",
+            style="color(55) bold",
         )
 
         if confirm_initial():
@@ -135,8 +136,9 @@ def confirm_initial():
     Returns True if they confirm (Y), False if they want to restart (N).
     """
     while True:
-        confirmation = input(
-            "\nAre these details correct? (Y/N): "
+        confirmation = console.input(
+            "\n\n[color(166)]Are these details correct?[/color(166)] "
+            "[bold color(202)](Y/N):[/bold color(202)] "
         ).strip().lower()
 
         if confirmation in ["y", "n"]:
@@ -156,31 +158,40 @@ def subsequent_questions():
     description = get_input(
         question=(
             "Enter a description of the expense "
-            "e.g boat trip, booking.com, etc:"
+            "e.g boat trip, booking.com, etc: "
         ),
         value_type=str,
         error="Please enter a valid type of expense",
     )
     cost = get_input(
-            question="\nEnter the amount of the expense e.g 100.00: £\n",
+            question="\nEnter the amount of the expense e.g 100.00: £",
             value_type=float,
             error="\nPlease enter a valid amount\n",
             min_value=0,
         )
     category = [
-        "✈️ Flights/Transport",
-        "🏨 Accommodation",
-        "🚤 Excursions",
-        "✨ Miscellaneous",
+        "\nFlights/Transport",
+        "Accommodation",
+        "Excursions",
+        "Miscellaneous"
+    ]
+    styled_category = [
+        "[color(57)]✈️ Flights/Transport[/color(57)]",
+        "[color(57)]🏨 Accommodation[/color(57)]",
+        "[color(57)]🚤 Excursions[/color(57)]",
+        "[color(57)]✨ Miscellaneous[/color(57)]",
     ]
     while True:
-        console.print("\nPlease select a category: \n")
-        for i, category_option in enumerate(category):
+        console.print(
+            "\n[color(202)]Please select a category: [/color(202)]\n"
+        )
+        for i, category_option in enumerate(styled_category):
             console.print(f"  {i + 1}. {category_option}")
         value_range = f"[1 - {len(category)}]"
         try:
-            selected_index = int(input(
-                f"\nEnter a category number {value_range}: \n"
+            selected_index = int(console.input(
+                f"\n[color(202)]Enter a category number {value_range}:"
+                f"[/color(202)] \n"
             )) - 1
             if selected_index not in range(len(category)):
                 raise ValueError
@@ -199,10 +210,10 @@ def track_expenses(budget, duration):
     This function tracks the expenses
     """
     expense_totals = {
-        "✈️ Flights/Transport": 0,
-        "🏨 Accommodation": 0,
-        "🚤 Excursions": 0,
-        "✨ Miscellaneous": 0,
+        "Flights/Transport": 0,
+        "Accommodation": 0,
+        "Excursions": 0,
+        "Miscellaneous": 0,
     }
     total_expenses = 0
 
@@ -235,9 +246,9 @@ def display_added_expense(description, cost, category, expense_totals):
         speed=1.0,
     ):
         time.sleep(2)
-    console.print(expense_summary, style="#9DE635 bold")
+    console.print(expense_summary, style="color(55) bold")
     running_total = ("\nCurrent expense totals by category:")
-    console.print(running_total, style="#9DE635")
+    console.print(running_total, style="color(55)")
     for cat, total in expense_totals.items():
         console.print(f"{cat}: £{total:,.2f}", style="bold green")
     google_doc(expense_summary)
@@ -249,8 +260,9 @@ def add_more_expenses():
     This function asks the user if they want to add more expenses
     """
     while True:
-        add_more = input(
-            "\nDo you want to add another expense? (Y/N): "
+        add_more = console.input(
+            "\n[color(166)]Do you want to add another expense?[/color(166)]"
+            "[bold color(202)] (Y/N):[/bold color(202)] "
         ).strip().lower()
         if add_more == "y":
             return True
@@ -279,7 +291,7 @@ def final_summary(budget, duration, total_expenses):
     console.rule("")
     console.print(
         summary_text,
-        style="bold #9DE635",
+        style="bold color(55)",
     )
     google_doc(summary_text)
     exit_message(remaining_budget, duration)
@@ -305,7 +317,7 @@ def exit_message(remaining_budget, duration):
     console.print(
         "\nThank you for using the Travel Budget Planner!"
         "\nWe hope to see you again soon!",
-        style="bold #9DE635",
+        style="bold color(69)",
     )
 
 
@@ -343,17 +355,17 @@ def main():
     """
     console.print(welcome, style="bold #15E6E4", justify="center")
     begin = get_content("intro.txt")
-    console.print(begin, style="#9DE635")
+    console.print(begin, style="color(126)")
     console.rule("")
     budget, duration, spending_money = display_initial()
     console.rule("")
     console.print(
         "\nThe next set of questions will be about your expenses.",
-        style="#9DE635",
+        style="color(126)",
         )
     console.print(
         "You can enter multiple expenses if you wish.\n",
-        style="#9DE635",
+        style="color(126)",
         )
     track_expenses(budget, duration)
 
