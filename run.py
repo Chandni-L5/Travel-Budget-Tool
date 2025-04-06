@@ -1,6 +1,7 @@
 from rich import print
 from rich.padding import Padding
 from rich.console import Console
+import time
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -26,8 +27,8 @@ Enable use of rich library for console output
 
 welcome = Padding(
     (
-        ":airplane_departure: Welcome to your Travel Budget Planner "
-        ":money_with_wings:"
+        "[u]:airplane_departure: Welcome to your Travel Budget Planner "
+        ":money_with_wings:[/u]"
     ),
     1,
 )
@@ -104,10 +105,18 @@ def display_initial():
     """
     This function displays the initial travel details
     and asks the user to confirm them.
+    a Rich display status bar is used to identify
+    when a process is running to display a custom
+    statement
     """
     while True:
         budget, duration, spending_money = initial_questions()
-
+        with console.status(
+            "\n[bold green]Calculating...",
+            spinner="aesthetic",
+            speed=1.0,
+        ):
+            time.sleep(2)
         console.print(
             f"\nYour travel budget is £{budget:,.2f}, you plan to travel for "
             f"{duration} days and ideally you would like to have £"
@@ -219,6 +228,13 @@ def display_added_expense(description, cost, category, expense_totals):
         f"\nYou have added an expense of £{cost:,.2f} for {description} "
         f"under the category {category}."
     )
+    console.rule("")
+    with console.status(
+        "\n[bold green]Calculating...",
+        spinner="aesthetic",
+        speed=1.0,
+    ):
+        time.sleep(2)
     console.print(expense_summary, style="#9DE635 bold")
     running_total = ("\nCurrent expense totals by category:")
     console.print(running_total, style="#9DE635")
@@ -260,6 +276,7 @@ def final_summary(budget, duration, total_expenses):
         f"\nYou can spend £{remaining_budget / duration:,.2f}"
         f" per day."
     )
+    console.rule("")
     console.print(
         summary_text,
         style="bold #9DE635",
@@ -328,7 +345,9 @@ def main():
     console.print(welcome, style="bold #15E6E4", justify="center")
     begin = get_content("intro.txt")
     console.print(begin, style="#9DE635", justify="center")
+    console.rule("")
     budget, duration, spending_money = display_initial()
+    console.rule("")
     console.print(
         "\nThe next set of questions will be about your expenses.",
         style="#9DE635",
