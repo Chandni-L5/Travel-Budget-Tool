@@ -29,8 +29,6 @@ The final results include the running total of expenses by category, the amount 
 
 A summary of the results are printed to a [Google document](https://docs.google.com/document/d/1ev4aBGg3904TWkGkpIIZq0NqTvKKHihuFNdtoBOZ9Rk/edit?usp=sharing) so the user is able to keep a record of their results to refer back to if required.
 
-
-
 ## Features
 During the planning stages of my project, I utilized Lucidchart.com to brain storm and plan the algorithm which would be required to prepare for the flow of the programme.
 ![screenshot of Lucidchart algorithm](/documentation/lucid_chart_algo.webp) 
@@ -47,16 +45,31 @@ During the planning stages of my project, I utilized Lucidchart.com to brain sto
 * [Lucidchart](https://www.lucidchart.com/pages) - to map and plan the flow of the app
 * [Github](https://github.com/) - For version control 
 * VS Code - used as the code editor and to save files
+* [Rich Library and Documentation](https://rich.readthedocs.io/en/stable/index.html)
 
 ## Testing 
 ### Bugs 
 ### Validator Testing 
 
 ## Deployment 
+* Render
 
 ## Credits
 ### Code Used 
 ### Content
+* [Rich Framework](https://rich.readthedocs.io/en/stable/index.html)
+* [Rich library tutorials](https://calmcode.io/course/rich/introduction)
+* [Rich README.md](https://github.com/textualize/rich/blob/master/README.md)
+* [Lucidchart](https://www.lucidchart.com/pages) - to map and plan the flow of the app
+* [Render](https://render.com/)
+* [Endgrate.com - blog](https://endgrate.com/blog/how-to-get-document-texts-with-the-google-docs-api-in-python) - used as guidance to link Google Docs API and to create function to print to the google doc.
+* [Google Workspace Guides](https://developers.google.com/workspace/docs/api/quickstart/python) - Guides used to enable API.
 ### Media
+* [Internet Made Coder - youtube tutorial](https://www.youtube.com/watch?v=4TZ1K8EHT2M)
+* [pixegami - youtube tutorial](https://www.youtube.com/watch?v=HTD86h69PtE)
+* [pixegami - python-for-beginners repository](https://github.com/pixegami/python-for-beginners/tree/main)
 ### Documentation and Testing
+* [Diffchecker](https://www.diffchecker.com/)
+* [Chatgpt](https://chatgpt.com/)
+
 ### Acknowledgements

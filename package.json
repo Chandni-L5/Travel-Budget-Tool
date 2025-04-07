@@ -1,0 +1,22 @@
+{
+  "name": "travel-budget-planner",
+  "version": "1.0.0",
+  "description": "The Travel Budget Planner application is a Python tool created to assist the user in working out if they have enough money in their budget to book an overseas holiday.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chandni-L5/Travel-Budget-Tool.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chandni-L5/Travel-Budget-Tool/issues"
+  },
+  "homepage": "https://github.com/Chandni-L5/Travel-Budget-Tool#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
