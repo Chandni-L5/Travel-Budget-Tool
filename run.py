@@ -121,15 +121,18 @@ def display_initial():
             speed=1.0,
         ):
             time.sleep(2)
-        console.print(
+        display_initial_text = (
             f"\nYour travel budget is £{budget:,.2f}, you plan to travel for "
             f"{duration} days and ideally you would like to have £"
-            f"{spending_money:,.2f} to spend per day.",
-            style="color(226) bold",
+            f"{spending_money:,.2f} to spend per day."
         )
+        console.print(display_initial_text, style="color(226) bold")
 
         if confirm_initial():
+            google_doc(display_initial_text)
             return budget, duration, spending_money
+        else:
+            console.print("\nLet's try again.")
 
 
 def confirm_initial():
@@ -159,7 +162,7 @@ def subsequent_questions():
     """
     description = get_input(
         question=(
-            "Enter a description of the expense "
+            "\nEnter a description of the expense "
             "e.g boat trip, booking.com, etc: "
         ),
         value_type=str,
@@ -228,6 +231,7 @@ def track_expenses(budget, duration):
         display_added_expense(description, cost, category, expense_totals)
         if not add_more_expenses():
             break
+    google_doc_expense_summary(expense_totals)
     final_summary(budget, duration, total_expenses)
 
 
@@ -260,7 +264,6 @@ def display_added_expense(description, cost, category, expense_totals):
         table.add_row(f"{cat}", f"£{total:,.2f}", style="color(226)")
     console.print(table)
     google_doc(expense_summary)
-    google_doc_table(expense_totals)
 
 
 def add_more_expenses():
@@ -372,14 +375,34 @@ def google_doc(text):
         print(f"An error occurred: {error}")
 
 
-def google_doc_table(expense_totals):
+def google_doc_expense_summary(expense_totals):
     """
-    This function prints the table summary to the google doc
+    prints readable text table to Google Docs
     """
-    table_text = '\nExpense Summary\n'
-    for category, total in expense_totals.items():
-        table_text += f"{category}: £{total:,.2f}\n"
-    google_doc(table_text)
+    header = "Expense Summary\n\n"
+    col1 = "Category"
+    col2 = "Running Total"
+    line_length = 50
+
+    table = f"{col1.ljust(25)} | {col2.rjust(15)}\n"
+    table += "-" * line_length + "\n"
+
+    for cat, total in expense_totals.items():
+        amount = f"£{total:,.2f}"
+        table += f"{cat.ljust(25)} | {amount.rjust(15)}\n"
+
+    table += "-" * line_length + "\n"
+    full_text = "\n" + header + table + "\n"
+    google_doc(full_text)
+
+
+def google_doc_final_summary(total_spent, remaining_budget, updated_daily):
+    summary = (
+        f"\nYour total expenses are £{total_spent:,.2f}.\n\n"
+        f"You have £{remaining_budget:,.2f} left to spend on your trip.\n\n"
+        f"You can spend £{updated_daily:,.2f} per day.\n"
+    )
+    google_doc(summary)
 
 
 def main():

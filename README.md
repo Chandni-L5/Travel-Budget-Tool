@@ -3,7 +3,7 @@ The Travel Budget Planner application is a Python tool created to assist the use
 
 The user inputs required information for the tool to calculate the total cost, remainder of budget and whether you have enough left over for daily spending. 
 
-!!Click here to access the live project.
+[Click here to view the programme](https://travel-budget-tool.onrender.com)
 
 ## User Experience
 The purpose of this programme is to assist a user in deciding if they have the finances in place to book a holiday abroad. Based on the responses it clarified and repeats back to the user the relevant information to decided if they have enough within their budget to go ahead and book or to take some time to save up a bit more. 
@@ -23,9 +23,13 @@ The programme is aimed at adults of all ages who are considering booking a holid
 ## How does it work?
 Initially users input information about their budget and length of their trip. Next they are prompted to input a type of expense, the cost of the expense and to select which category it falls within. The pre-set categories include flights, accommodation, travel insurance, transfers, excursions and an open category named miscellaneous. 
 
-Once all the required information has been entered it is repeated back to the user for clarity. In addition a running total of the expenses by Category is displayed. The user is then prompted to consider if they wish to add further expenses. If answered yes the questions loop back to the type, cost and category questions and if answered no the final results are displayed.
+Once all the required information has been entered it is repeated back to the user for clarity. In addition a running total of the expenses by category is displayed. The user is then prompted to consider if they wish to add further expenses. If answered yes the questions loop back to the type, cost and category questions and if answered no the final results are displayed.
 
 The final results include the running total of expenses by category, the amount left from the budget after considering these expenses and also how much that would work out as remaining spend per day. Finally a message is displayed to the user dependant on the comparison between the calculated daily spend allowance against the amount initially inputted in the first set of questions. 
+
+A summary of the results are printed to a [Google document](https://docs.google.com/document/d/1ev4aBGg3904TWkGkpIIZq0NqTvKKHihuFNdtoBOZ9Rk/edit?usp=sharing) so the user is able to keep a record of their results to refer back to if required.
+
+
 
 ## Features
 During the planning stages of my project, I utilized Lucidchart.com to brain storm and plan the algorithm which would be required to prepare for the flow of the programme.
