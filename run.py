@@ -324,6 +324,8 @@ def final_summary(budget, duration, total_expenses):
         "\nA summary of your results has been added to Google Doc "
         "successfully - You can view it here: "
         "[link=https://docs.google.com/document/d/"
+        "1ev4aBGg3904TWkGkpIIZq0NqTvKKHihuFNdtoBOZ9Rk/"
+        "edit?usp=sharing"
         f"{DOCUMENT_ID}/edit]Google Doc[/link]",
         style="color(51)",)
     console.print("")
