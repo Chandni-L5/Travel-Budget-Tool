@@ -126,7 +126,7 @@ def display_initial():
             f"\nYour travel budget is £{budget:,.2f}, you plan to travel for "
             f"{duration} days and ideally you would like to have £"
             f"{spending_money:,.2f} to spend per day.",
-            style="color(55) bold",
+            style="color(226) bold",
         )
 
         if confirm_initial():
@@ -141,7 +141,7 @@ def confirm_initial():
     while True:
         confirmation = console.input(
             "\n\n[color(166)]Are these details correct?[/color(166)] "
-            "[bold color(202)](Y/N):[/bold color(202)] "
+            "[bold color(50))](Y/N):[/bold color(50)] "
         ).strip().lower()
 
         if confirmation in ["y", "n"]:
@@ -186,15 +186,15 @@ def subsequent_questions():
     ]
     while True:
         console.print(
-            "\n[color(202)]Please select a category: [/color(202)]\n"
+            "\n[color(50)]Please select a category: [/color(50)]\n"
         )
         for i, category_option in enumerate(styled_category):
             console.print(f"  {i + 1}. {category_option}")
         value_range = f"[1 - {len(category)}]"
         try:
             selected_index = int(console.input(
-                f"\n[color(202)]Enter a category number {value_range}: "
-                f"[/color(202)]"
+                f"\n[color(50)]Enter a category number {value_range}: "
+                f"[/color(50)]"
             )) - 1
             if selected_index not in range(len(category)):
                 raise ValueError
@@ -250,15 +250,15 @@ def display_added_expense(description, cost, category, expense_totals):
         speed=1.0,
     ):
         time.sleep(2)
-    console.print(expense_summary, style="color(55) bold")
+    console.print(expense_summary, style="color(226) bold")
     table = Table(
-        title="\n[color(170)]Expense Summary[/color(170)]",
+        title="\n[color(51)]Expense Summary[/color(51)]",
         box=box.ASCII_DOUBLE_HEAD
     )
     table.add_column("Category", justify="left")
     table.add_column("Running Total", justify="right")
     for cat, total in expense_totals.items():
-        table.add_row(f"{cat}", f"£{total:,.2f}", style="color(55)")
+        table.add_row(f"{cat}", f"£{total:,.2f}", style="color(226)")
     console.print(table)
     google_doc(expense_summary)
     google_doc_table(expense_totals)
@@ -271,7 +271,7 @@ def add_more_expenses():
     while True:
         add_more = console.input(
             "\n[color(166)]Do you want to add another expense?[/color(166)]"
-            "[bold color(202)] (Y/N):[/bold color(202)] "
+            "[bold color(50)] (Y/N):[/bold color(50)] "
         ).strip().lower()
         if add_more == "y":
             return True
@@ -307,14 +307,14 @@ def final_summary(budget, duration, total_expenses):
     console.rule("")
     console.print(
         summary_text,
-        style="color(55)",
+        style="color(226)",
     )
     console.print(
         "\nA summary of your results has been added to Google Doc "
         "successfully - You can view it here: "
         "[link=https://docs.google.com/document/d/"
         f"{DOCUMENT_ID}/edit]Google Doc[/link]",
-        style="color(170)",)
+        style="color(51))",)
     console.print("")
     google_doc(summary_text)
     exit_message(remaining_budget, duration)
@@ -329,7 +329,7 @@ def exit_message(remaining_budget, duration):
     if remaining_budget_per_day > 0:
         console.print(
             "\nPack your bags and get ready for your trip! 🧳 ",
-            style="bold",
+            style="bold color(226)",
         )
     else:
         console.print(
@@ -389,17 +389,17 @@ def main():
     """
     console.print(welcome, style="bold #15E6E4", justify="center")
     begin = get_content("intro.txt")
-    console.print(begin, style="color(126)")
+    console.print(begin, style="color(10)")
     console.rule("")
     budget, duration, spending_money = display_initial()
     console.rule("")
     console.print(
         "\nThe next set of questions will be about your expenses.",
-        style="color(126)",
+        style="color(10)",
         )
     console.print(
         "You can enter multiple expenses if you wish.\n",
-        style="color(126)",
+        style="color(10)",
         )
     track_expenses(budget, duration)
 
