@@ -148,7 +148,7 @@ def confirm_initial():
             return confirmation == "y"  # True for "Y", False for "N"
 
         error_console.print(
-            "\nInvalid input. Please enter 'Y' for Yes or 'N' for No.\n",
+            "\nInvalid input. Please enter 'Y' for Yes or 'N' for No.",
             style="bold red"
             )
 
@@ -314,7 +314,7 @@ def final_summary(budget, duration, total_expenses):
         "successfully - You can view it here: "
         "[link=https://docs.google.com/document/d/"
         f"{DOCUMENT_ID}/edit]Google Doc[/link]",
-        style="color(51))",)
+        style="color(51)",)
     console.print("")
     google_doc(summary_text)
     exit_message(remaining_budget, duration)
