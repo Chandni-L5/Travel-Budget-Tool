@@ -141,7 +141,7 @@ def confirm_initial():
     while True:
         confirmation = console.input(
             "\n\n[color(166)]Are these details correct?[/color(166)] "
-            "[bold color(50))](Y/N):[/bold color(50)] "
+            "[bold color(50)](Y/N):[/bold color(50)] "
         ).strip().lower()
 
         if confirmation in ["y", "n"]:
