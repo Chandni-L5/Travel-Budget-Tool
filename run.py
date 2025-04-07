@@ -56,9 +56,8 @@ def get_input(
     throws an error if the input is not valid
     """
     while True:
-        print()
-        styled_question = f"[color(166)]{question}[/color(166)]"
-        user_input = console.input(styled_question).strip()
+        console.print(f"[color(166)]{question}[/color(166)]")
+        user_input = console.input("> ").strip()
 
         try:
             value = value_type(user_input)
@@ -270,7 +269,7 @@ def add_more_expenses():
     """
     while True:
         add_more = console.input(
-            "\n[color(166)]Do you want to add another expense?[/color(166)]"
+            "\n[color(166)]Do you want to add another expense?[/color(166)\n]"
             "[bold color(50)] (Y/N):[/bold color(50)] "
         ).strip().lower()
         if add_more == "y":
