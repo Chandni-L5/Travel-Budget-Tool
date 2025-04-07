@@ -4,9 +4,11 @@ from rich.console import Console
 from rich.table import Table
 from rich import box
 import time
-from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+import json
+import os
+from google.oauth2 import service_account
 
 
 SCOPE = [
@@ -15,10 +17,17 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive",
 ]
 
-CREDS = Credentials.from_service_account_file("creds.json", scopes=SCOPE)
+CREDS_DICT = json.loads(os.environ['GOOGLE_CREDS'])
+CREDS = service_account.Credentials.from_service_account_info(
+    CREDS_DICT,
+    scopes=SCOPE,
+)
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 DOCUMENT_ID = "1ev4aBGg3904TWkGkpIIZq0NqTvKKHihuFNdtoBOZ9Rk"
 DOCS_SERVICE = build("docs", "v1", credentials=SCOPED_CREDS)
+creds = service_account.Credentials.from_service_account_info(
+    CREDS_DICT, scopes=SCOPE
+)
 
 
 console = Console()
