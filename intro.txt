@@ -1,7 +1,12 @@
-This app will analyze your expenses when planning a holiday
+This programme will analyze your expenses when planning a holiday
 abroad and advise if you have enough saved within your budget
 to book the trip, or whether you should save a bit more to 
 increase your budget.
+
+A summary of your results will be printed to a google document
+so you can refer back to this later. A link to this document 
+will be provided for you at the end of the programme.
+
 
 The first set of questions will assist the app in understanding
 your criteria and requirements for this trip.
