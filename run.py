@@ -358,17 +358,17 @@ def final_summary(budget, duration, total_expenses):
         summary_text,
         style="color(226)",
     )
+    exit_message(remaining_budget, duration)
     console.print(
         "\nA summary of your results has been added to Google Doc "
-        "successfully - You can view it here: "
-        "[link=https://docs.google.com/document/d/"
-        "1ev4aBGg3904TWkGkpIIZq0NqTvKKHihuFNdtoBOZ9Rk/"
-        "edit?usp=sharing"
-        f"{DOCUMENT_ID}/edit]Google Doc[/link]",
-        style="color(51)",)
+        "successfully - Copy and paste this link into your browser to view "
+        "your summary - https://tinyurl.com/2e77c76c \n"
+        "\nPlease consider copy and pasting the summary into a "
+        "separate document for your records.\n",
+        style="color(51)",
+    )
     console.print("")
     google_doc(summary_text)
-    exit_message(remaining_budget, duration)
 
 
 def exit_message(remaining_budget, duration):
@@ -388,6 +388,21 @@ def exit_message(remaining_budget, duration):
             "have exceeded your budget. ",
             style="bold red",
         )
+    while True:
+        exit_choice = console.input(
+            "\n[color(166)]Have you finished viewing the Google Doc?"
+            "[/color(166)]\n"
+            "\n[bold color(50)] (Y/N):[/bold color(50)] "
+        ).strip().lower()
+        if exit_choice == "y":
+            clear_google_doc()
+            break
+        else:
+            error_console.print(
+                "\nProgram will not exit until you have finished viewing the "
+                "Google Doc.",
+                style="bold red"
+            )
     console.print("")
     console.print(
         "\nThank you for using the Travel Budget Planner!"
@@ -401,7 +416,9 @@ def google_doc(text):
     """
     This function prints the summary to the google doc
     """
-    document = DOCS_SERVICE.documents().get(documentId=DOCUMENT_ID).execute()
+    document = DOCS_SERVICE.documents().get(
+        documentId=DOCUMENT_ID
+    ).execute()
     document_length = document.get(
         "body", {}
         ).get("content", [])[-1]["endIndex"]
@@ -452,6 +469,35 @@ def google_doc_final_summary(total_spent, remaining_budget, updated_daily):
         f"You can spend £{updated_daily:,.2f} per day.\n"
     )
     google_doc(summary)
+
+
+def clear_google_doc():
+    """
+    This function clears the Google Doc
+    """
+    try:
+        document = DOCS_SERVICE.documents().get(
+            documentId=DOCUMENT_ID
+        ).execute()
+        document_length = document.get(
+            "body", {}
+            ).get("content", [])[-1]["endIndex"]
+        requests = [
+            {
+                "deleteContentRange": {
+                    "range": {
+                        "startIndex": 1,
+                        "endIndex": document_length - 1
+                    }
+                }
+            }
+        ]
+        DOCS_SERVICE.documents().batchUpdate(
+            documentId=DOCUMENT_ID,
+            body={"requests": requests}
+        ).execute()
+    except HttpError as error:
+        print(f"An error occurred whilst clearing the document {error}")
 
 
 def main():
