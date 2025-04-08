@@ -94,21 +94,21 @@ def initial_questions():
     budget = get_input(
         question="What is your travel budget?",
         value_type=float,
-        error="Please enter a [strike]number[/strike] greater than 0",
+        error="Please enter a [underline]number[/underline] greater than 0",
         min_value=0,
         show_symbol=True,
     )
     duration = get_input(
         question="What is the length of your travel in days? ",
         value_type=int,
-        error="Please enter a [strike]number[/strike] greater than 0",
+        error="Please enter a [underline]number[/underline] greater than 0",
         min_value=0,
         show_symbol=False,
     )
     spending_money = get_input(
         question="How much spending money do you require per day?",
         value_type=float,
-        error="Please enter a [strike]number[/strike] greater than 0",
+        error="Please enter a [underline]number[/underline] greater than 0",
         min_value=0,
         show_symbol=True,
     )
