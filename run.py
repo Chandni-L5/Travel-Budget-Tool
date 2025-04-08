@@ -59,6 +59,7 @@ def get_input(
     value_type,
     min_value=None,
     error="Please enter a valid number greater than 0",
+    show_symbol=False
 ):
     """
     This function gets input from the user and
@@ -66,11 +67,10 @@ def get_input(
     """
     while True:
         console.print(f"[color(166)]{question}[/color(166)]")
-        user_input = console.input("> £ ").strip()
-
+        currency = "£ " if show_symbol else ""
+        user_input = console.input(f"> {currency} ").strip()
         try:
             value = value_type(user_input)
-
             if (
                 (value_type == str and user_input.isdigit())
                 or (
@@ -82,7 +82,6 @@ def get_input(
                 error_console.print(f"\n{error}\n")
                 continue
             return value
-
         except ValueError:
             error_console.print(f"\n Invalid input - {error}")
 
@@ -95,20 +94,23 @@ def initial_questions():
     budget = get_input(
         question="What is your travel budget?",
         value_type=float,
-        error="Please enter a number greater than 0",
+        error="Please enter a [strike]number[/strike] greater than 0",
         min_value=0,
+        show_symbol=True,
     )
     duration = get_input(
         question="What is the length of your travel in days? ",
         value_type=int,
-        error="Please enter a number greater than 0",
+        error="Please enter a [strike]number[/strike] greater than 0",
         min_value=0,
+        show_symbol=False,
     )
     spending_money = get_input(
         question="How much spending money do you require per day?",
         value_type=float,
-        error="Please enter a number greater than 0",
+        error="Please enter a [strike]number[/strike] greater than 0",
         min_value=0,
+        show_symbol=True,
     )
     return budget, duration, spending_money
 
@@ -182,12 +184,14 @@ def subsequent_questions():
         ),
         value_type=str,
         error="Please enter a valid type of expense",
+        show_symbol=False,
     )
     cost = get_input(
             question="\nEnter the amount of the expense e.g 100.00:",
             value_type=float,
             error="\nPlease enter a valid amount\n",
             min_value=0,
+            show_symbol=True,
         )
     category = [
         "Flights/Transport",
