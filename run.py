@@ -140,14 +140,14 @@ def display_initial():
         )
         console.print(display_initial_text, style="color(226) bold")
 
-        if confirm_initial():
+        if confirm():
             google_doc(display_initial_text)
             return budget, duration, spending_money
         else:
             console.print("\nLet's try again.")
 
 
-def confirm_initial():
+def confirm():
     """
     This function asks the user to confirm if their travel details are correct.
     Returns True if they confirm (Y), False if they want to restart (N).
@@ -170,58 +170,65 @@ def confirm_initial():
 def subsequent_questions():
     """
     This function gets the type of expense from the user, cost
-    and category of the expense
+    and category of the expense.
+    It also asks for confirmation before proceeding.
     """
-    description = get_input(
-        question=(
-            "\nEnter a description of the expense "
-            "e.g boat trip, booking.com, etc: "
-        ),
-        value_type=str,
-        error="Please enter a valid type of expense",
-        show_symbol=False,
-    )
-    cost = get_input(
+    while True:
+        description = get_input(
+            question=(
+                "\nEnter a description of the expense "
+                "e.g boat trip, booking.com, etc: "
+            ),
+            value_type=str,
+            error="Please enter a valid type of expense",
+            show_symbol=False,
+        )
+        cost = get_input(
             question="\nEnter the amount of the expense e.g 100.00:",
             value_type=float,
             error="\nPlease enter a valid amount\n",
             min_value=0,
             show_symbol=True,
         )
-    category = [
-        "Flights/Transport",
-        "Accommodation",
-        "Excursions",
-        "Miscellaneous"
-    ]
-    styled_category = [
-        "[color(57)]✈️ Flights/Transport[/color(57)]",
-        "[color(57)]🏨 Accommodation[/color(57)]",
-        "[color(57)]🚤 Excursions[/color(57)]",
-        "[color(57)]✨ Miscellaneous[/color(57)]",
-    ]
-    while True:
-        console.print(
-            "\n[color(50)]Please select a category: [/color(50)]\n"
-        )
-        for i, category_option in enumerate(styled_category):
-            console.print(f"  {i + 1}. {category_option}")
-        value_range = f"[1 - {len(category)}]"
-        try:
-            selected_index = int(console.input(
-                f"\n[color(50)]Enter a category number {value_range}: "
-                f"[/color(50)]"
-            )) - 1
-            if selected_index not in range(len(category)):
-                raise ValueError
-            break
-        except ValueError:
-            error_console.print(
-                f"\nInvalid input. Please enter a number between "
-                f"1 and {len(category)}.\n",
-                style="bold red"
+        category = [
+            "Flights/Transport",
+            "Accommodation",
+            "Excursions",
+            "Miscellaneous"
+        ]
+        styled_category = [
+            "[color(57)]✈️ Flights/Transport[/color(57)]",
+            "[color(57)]🏨 Accommodation[/color(57)]",
+            "[color(57)]🚤 Excursions[/color(57)]",
+            "[color(57)]✨ Miscellaneous[/color(57)]",
+        ]
+        while True:
+            console.print(
+                "\n[color(50)]Please select a category: [/color(50)]\n"
             )
-    return description, cost, category[selected_index]
+            for i, category_option in enumerate(styled_category):
+                console.print(f"  {i + 1}. {category_option}")
+            value_range = f"[1 - {len(category)}]"
+            try:
+                selected_index = int(console.input(
+                    f"\n[color(50)]Enter a category number {value_range}: "
+                    f"[/color(50)]"
+                )) - 1
+                if selected_index not in range(len(category)):
+                    raise ValueError
+                break
+            except ValueError:
+                error_console.print(
+                    f"\nInvalid input. Please enter a number between "
+                    f"1 and {len(category)}.\n",
+                    style="bold red"
+                )
+        if confirm():
+            return description, cost, category[selected_index]
+        else:
+            console.print(
+                "\nLet's try entering that expense again.", style="color(166)"
+            )
 
 
 def track_expenses(budget, duration):
@@ -434,7 +441,11 @@ def main():
     budget, duration, spending_money = display_initial()
     console.rule("")
     console.print(
-        "\nThe next set of questions will be about your expenses.",
+        (
+            "\nThe next set of questions will be about your expenses such as "
+            "hotels, flights or activities such as boat trips or a tour of a "
+            "vineyard."
+        ),
         style="color(10)",
         )
     console.print(
