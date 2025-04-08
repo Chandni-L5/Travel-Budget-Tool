@@ -11,6 +11,31 @@ import os
 from google.oauth2 import service_account
 
 
+class Expense:
+    def __init__(self, description, cost, category):
+        """
+        Creates an expense object as a class
+        """
+        self.description = description
+        self.cost = cost
+        self.category = category
+
+    def __str__(self):
+        """ Returns a string representation of the expense object"""
+        return f"{self.description}: £{self.cost:,.2f} ({self.category})"
+
+    def update_cost(self, new_cost):
+        """ Updates the cost of the expense. """
+        if new_cost > 0:
+            self.cost = new_cost
+        else:
+            print("Invalid input. Please enter a valid number greater than 0.")
+
+    def get_category(self):
+        """Returns the category of the expense."""
+        return self.category
+
+
 SCOPE = [
     "https://www.googleapis.com/auth/documents",
     "https://www.googleapis.com/auth/drive.file",
@@ -223,8 +248,9 @@ def subsequent_questions():
                     f"1 and {len(category)}.\n",
                     style="bold red"
                 )
+        expense = Expense(description, cost, category[selected_index])
         if confirm():
-            return description, cost, category[selected_index]
+            return expense
         else:
             console.print(
                 "\nLet's try entering that expense again.", style="color(166)"
@@ -242,29 +268,27 @@ def track_expenses(budget, duration):
         "Miscellaneous": 0,
     }
     total_expenses = 0
-
     while True:
-        description, cost, category = subsequent_questions()
+        expense = subsequent_questions()
+        expense_totals[expense.get_category()] += expense.cost
+        total_expenses += expense.cost
 
-        expense_totals[category] += cost
-        total_expenses += cost
-
-        display_added_expense(description, cost, category, expense_totals)
+        display_added_expense(expense, expense_totals)
         if not add_more_expenses():
             break
     google_doc_expense_summary(expense_totals)
     final_summary(budget, duration, total_expenses)
 
 
-def display_added_expense(description, cost, category, expense_totals):
+def display_added_expense(expense, expense_totals):
     """
     This function displays a summary of the expense added
     and also updates the running total per
     category
     """
     expense_summary = (
-        f"\nYou have added an expense of £{cost:,.2f} for {description} "
-        f"under the category {category}."
+        f"\nYou have added an expense of £{expense.cost:,.2f} for "
+        f"{expense.description} under the category {expense.category}."
     )
     console.rule("")
     console.print("")
