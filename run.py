@@ -132,12 +132,7 @@ def display_initial():
     while True:
         budget, duration, spending_money = initial_questions()
         console.print("")
-        with console.status(
-            "\n[bold green]Loading...",
-            spinner="aesthetic",
-            speed=1.0,
-        ):
-            time.sleep(2)
+        loading_widget()
         display_initial_text = (
             f"\nYour travel budget is £{budget:,.2f}, you plan to travel for "
             f"{duration} days and ideally you would like to have £"
@@ -266,12 +261,7 @@ def display_added_expense(description, cost, category, expense_totals):
     )
     console.rule("")
     console.print("")
-    with console.status(
-        "\n[bold green]Loading...",
-        spinner="aesthetic",
-        speed=1.0,
-    ):
-        time.sleep(2)
+    loading_widget()
     console.print(expense_summary, style="color(226) bold")
     table = Table(
         title="\n[color(51)]Expense Summary[/color(51)]",
@@ -283,6 +273,18 @@ def display_added_expense(description, cost, category, expense_totals):
         table.add_row(f"{cat}", f"£{total:,.2f}", style="color(226)")
     console.print(table)
     google_doc(expense_summary)
+
+
+def loading_widget():
+    """
+    This function displays a loading widget
+    """
+    with console.status(
+        "\n[bold green]Loading...",
+        spinner="aesthetic",
+        speed=1.0,
+    ):
+        time.sleep(2)
 
 
 def add_more_expenses():
@@ -311,12 +313,7 @@ def final_summary(budget, duration, total_expenses):
     the summary to Google Docs.
     """
     console.print("")
-    with console.status(
-        "\n[bold green]Loading...",
-        spinner="aesthetic",
-        speed=1.0,
-    ):
-        time.sleep(2)
+    loading_widget()
     remaining_budget = budget - total_expenses
     summary_text = (
         f"\nYour total expenses are £{total_expenses:,.2f}.\n"
