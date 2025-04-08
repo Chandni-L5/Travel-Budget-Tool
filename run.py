@@ -66,7 +66,7 @@ def get_input(
     """
     while True:
         console.print(f"[color(166)]{question}[/color(166)]")
-        user_input = console.input("> £").strip()
+        user_input = console.input("> £ ").strip()
 
         try:
             value = value_type(user_input)
@@ -84,7 +84,7 @@ def get_input(
             return value
 
         except ValueError:
-            error_console.print(f"\nInvalid input - {error}")
+            error_console.print(f"\n Invalid input - {error}")
 
 
 def initial_questions():
@@ -165,7 +165,7 @@ def confirm_initial():
             return confirmation == "y"  # True for "Y", False for "N"
 
         error_console.print(
-            "\nInvalid input. Please enter 'Y' for Yes or 'N' for No.",
+            "\n Invalid input. Please enter 'Y' for Yes or 'N' for No.",
             style="bold red"
             )
 

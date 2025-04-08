@@ -34,6 +34,20 @@ During the planning stages of my project, I utilized Lucidchart.com to brain sto
 ![screenshot of Lucidchart algorithm](/documentation/lucid_chart_algo.webp) 
 
 ### Existing Features
+The structure of the programme is split into an introduction and 3 other sections. 
+
+The initial screen begins with a welcoming message, enhanced with emojis using the Rich framework. This is followed by an introduction to the program’s purpose, including a note that the results will be summarized and saved to an external Google document.
+
+The introduction is separated by a line break before the initial questions are introduced and the first question is displayed. 
+
+![screenshot of the initial screen](/documentation/intro_screen.jpg)
+
+The Rich framework has been applied to style the text using a colour scheme to distinguish the main content and create some division whilst improving the user experience.
+
+The next question is not displayed until the first question is satisfactorily answered. The input field is prepared to only accept a numerical value and if any letters are entered, an error message is displayed and the question repeated to allow the user to make a valid entry. 
+
+![screenshot of error message associated with first question](/documentation/first_q_error.jpg)
+
 ### Future Features
 
 ## Data Model
