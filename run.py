@@ -133,7 +133,7 @@ def display_initial():
         budget, duration, spending_money = initial_questions()
         console.print("")
         with console.status(
-            "\n[bold green]Calculating...",
+            "\n[bold green]Loading...",
             spinner="aesthetic",
             speed=1.0,
         ):
@@ -267,7 +267,7 @@ def display_added_expense(description, cost, category, expense_totals):
     console.rule("")
     console.print("")
     with console.status(
-        "\n[bold green]Calculating...",
+        "\n[bold green]Loading...",
         spinner="aesthetic",
         speed=1.0,
     ):
@@ -312,7 +312,7 @@ def final_summary(budget, duration, total_expenses):
     """
     console.print("")
     with console.status(
-        "\n[bold green]Calculating...",
+        "\n[bold green]Loading...",
         spinner="aesthetic",
         speed=1.0,
     ):

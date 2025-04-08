@@ -48,6 +48,21 @@ The next question is not displayed until the first question is satisfactorily an
 
 ![screenshot of error message associated with first question](/documentation/first_q_error.jpg)
 
+This feature applies to all of the initial questions, so that if the invalid type of input is made, the error message appears and the opportunity to try again is presented until the valid type of characters has been inputted. 
+
+Once all three of the initial questions are answered, a Rich loading graphic has been applied to demonstrate that some behind the scenes 'calculations' are taking place. This feature has been added to engage the user and lead to the final part of the initial questions. 
+
+![Video showing the functionality of the loading graphic](/documentation/loading_graphic.gif)
+![screenshot of the summary statement result of the initial questions](/documentation/intial_q_statement.jpg)
+
+A summary statement is provided back to the user, repeating back the inputted data and asking the user to confirm if the details entered are correct. The user is invited to enter 'Y' or 'N'. Although the meaning of '(Y/N)' is not provided initially, if the user is unsure and enters anything other than 'Y' or 'N', an error message is displayed clearly explaining what is required to proceed. 
+
+![screenshot of the confirmation message and error message](/documentation/y_n.jpg)
+
+Once the initial questions have been confirmed the next section is implemented. There is a small paragraph introducing this section and the first question is displayed, including examples of the types of entries that can be made. 
+
+360
+
 ### Future Features
 
 ## Data Model
