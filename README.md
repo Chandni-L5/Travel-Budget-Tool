@@ -71,5 +71,7 @@ During the planning stages of my project, I utilized Lucidchart.com to brain sto
 ### Documentation and Testing
 * [Diffchecker](https://www.diffchecker.com/)
 * [Chatgpt](https://chatgpt.com/)
+* [CI Python Linter](https://pep8ci.herokuapp.com/)
+* [CI Render tutorial](https://code-institute-students.github.io/deployment-docs/03-render/)
 
 ### Acknowledgements
