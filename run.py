@@ -66,7 +66,7 @@ def get_input(
     """
     while True:
         console.print(f"[color(166)]{question}[/color(166)]")
-        user_input = console.input("> ").strip()
+        user_input = console.input("> £").strip()
 
         try:
             value = value_type(user_input)
@@ -93,7 +93,7 @@ def initial_questions():
     and spending money whilst using the get_input function.
     """
     budget = get_input(
-        question="What is your travel budget? £",
+        question="What is your travel budget?",
         value_type=float,
         error="Please enter a number greater than 0",
         min_value=0,
@@ -105,7 +105,7 @@ def initial_questions():
         min_value=0,
     )
     spending_money = get_input(
-        question="How much spending money do you require per day? £",
+        question="How much spending money do you require per day?",
         value_type=float,
         error="Please enter a number greater than 0",
         min_value=0,
@@ -121,6 +121,12 @@ def display_initial():
     when a process is running to display a custom
     statement
     """
+    console.print(
+        "\nThe first set of questions will assist the app in understanding "
+        "your criteria and requirements for this trip.\n"
+        "\nLet's begin!\n",
+        style="color(10)"
+    )
     while True:
         budget, duration, spending_money = initial_questions()
         console.print("")
@@ -178,7 +184,7 @@ def subsequent_questions():
         error="Please enter a valid type of expense",
     )
     cost = get_input(
-            question="\nEnter the amount of the expense e.g 100.00: £",
+            question="\nEnter the amount of the expense e.g 100.00:",
             value_type=float,
             error="\nPlease enter a valid amount\n",
             min_value=0,
@@ -422,7 +428,7 @@ def main():
     """
     console.print(welcome, style="bold #15E6E4", justify="center")
     begin = get_content("intro.txt")
-    console.print(begin, style="color(10)")
+    console.print(begin, style="color(195)")
     console.rule("")
     budget, duration, spending_money = display_initial()
     console.rule("")
