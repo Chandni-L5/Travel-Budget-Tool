@@ -84,10 +84,24 @@ The user is then prompted to confirm whether the details provided in the followi
  The final stage displays the totals of all of the entered expenses. the statement also provides a value of how much money remains in your budget and how much this leaves the user for spending per day. This value is also displayed if there are negative values, and this is shown for reference to give the user an idea of how much more they may need to save before they can book that trip. 
 
  ![screenshot of final summary](/documentation/final_summary.jpg)
+![screenshot of final question](/documentation/clear_doc.jpg)
+ This is preceded with an explanation and link to the google doc, where a summary of the expenses per category and final summary is printed. The user is encouraged to copy and paste this summary for their own records.
+ 
+ ![screenshot of google doc](/documentation/google_doc.jpg)
 
- This is preceded with an explanation and link to the google doc, where a summary of the expenses per category and final summary is printed. The user is encouraged to copy and paste this summary for their own records. Finally the user is asked if they have finished viewing the Google Doc
+  Finally the user is asked if they have finished viewing the Google Doc. If 'n' is selected, the user is informed that the programme cannot end until 'y' is selected. This is because once 'y' is selected the google document will be wiped, ready for the next user.
+
+  ![screenshot of final question](/documentation/final_message.jpg)
+
+  Once 'y' has been selected the concluding message is presented and the programme ends.
+
 
 ### Future Features
+
+There are a number of limitations currently to the programme. In future implementations I would consider adding or amending the following: 
+
+* The google document updates at various stages throughout the programme, this creates an issue if the terminal is refreshed or restarted as the summaries may print to the document when not necessarily required by the user. A fix would need to be implemented to remove any prints if the terminal is restarted.
+* The instructions and explanations within the programme are a bit unclear or clunky, I would look at refining the content to make it more user friendly and easier to navigate.
 
 ## Data Model
 
