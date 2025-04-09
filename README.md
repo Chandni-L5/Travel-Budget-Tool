@@ -57,11 +57,33 @@ Once all three of the initial questions are answered, a Rich loading graphic has
 
 A summary statement is provided back to the user, repeating back the inputted data and asking the user to confirm if the details entered are correct. The user is invited to enter 'Y' or 'N'. Although the meaning of '(Y/N)' is not provided initially, if the user is unsure and enters anything other than 'Y' or 'N', an error message is displayed clearly explaining what is required to proceed. 
 
+Once the statement is confirmed, the statement is also printed to the Google document.
+
 ![screenshot of the confirmation message and error message](/documentation/y_n.jpg)
 
 Once the initial questions have been confirmed the next section is implemented. There is a small paragraph introducing this section and the first question is displayed, including examples of the types of entries that can be made. 
 
-360
+ The input field for the first question will allow for any characters to be entered with the only restriction being numbers only. If only numbers have been entered an Invalid input error will be displayed.
+
+ The input field for the second question will only allow for numbers to be entered and will display an error message if any alphabetic characters are entered. 
+
+ ![screenshot of subsequent questions with error messages displayed](/documentation/subsequent_questions.jpg)
+
+The third question prompts the user to select the category that best fits the expense by entering a number between 1 and 4. The input field only accepts values within this range and will display an error message if an invalid number is entered.
+
+The user is then prompted to confirm whether the details provided in the following questions are correct. If 'y' is entered, the program continues; if 'n' is entered, the subsequent questions are repeated.
+
+![screenshot of the category question and error message](/documentation/select_category.jpg)
+
+ Once 'y' has been selected a summary of the expense is displayed and a table is presented to display the expenses per category. The loading graphic is displayed again before the expense summary is displayed. The user is then prompted if they wish to enter more expenses. As additional expenses are added, the summary updates to reflect the new totals per category.
+
+![screenshot of the expense summary](/documentation/expense_summary.jpg)
+
+ Each time 'y' is selected the subsequent questions are repeated, allowing the user to input additional expenses. When the user has finished entering all expenses and selects 'n', the program proceeds to the final stage. The loading graphic is again displayed just before the final stage.
+
+ The final stage displays the totals of all of the entered expenses. the statement also provides a value of how much money remains in your budget and how much this leaves the user for spending per day. This value is also displayed if there are negative values, and this is shown for reference to give the user an idea of how much more they may need to save before they can book that trip. 
+
+ 
 
 ### Future Features
 

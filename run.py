@@ -205,13 +205,13 @@ def subsequent_questions():
                 "e.g boat trip, booking.com, etc: "
             ),
             value_type=str,
-            error="Please enter a valid type of expense",
+            error="Invalid input - Please enter a valid type of expense",
             show_symbol=False,
         )
         cost = get_input(
             question="\nEnter the amount of the expense e.g 100.00:",
             value_type=float,
-            error="\nPlease enter a valid amount\n",
+            error="Please enter a valid amount\n",
             min_value=0,
             show_symbol=True,
         )
@@ -369,25 +369,6 @@ def final_summary(budget, duration, total_expenses):
     )
     console.print("")
     google_doc(summary_text)
-
-
-def exit_message(remaining_budget, duration):
-    """
-    This function displays the final message and conclusion
-    of the programme.
-    """
-    remaining_budget_per_day = remaining_budget / duration
-    if remaining_budget_per_day > 0:
-        console.print(
-            "\nPack your bags and get ready for your trip! 🧳 ",
-            style="bold color(226)",
-        )
-    else:
-        console.print(
-            "\nUnfortunately, your expenses "
-            "have exceeded your budget. ",
-            style="bold red",
-        )
     while True:
         exit_choice = console.input(
             "\n[color(166)]Have you finished viewing the Google Doc?"
@@ -410,6 +391,25 @@ def exit_message(remaining_budget, duration):
         style="bold color(69)",
         justify="center",
     )
+
+
+def exit_message(remaining_budget, duration):
+    """
+    This function displays the final message and conclusion
+    of the programme.
+    """
+    remaining_budget_per_day = remaining_budget / duration
+    if remaining_budget_per_day > 0:
+        console.print(
+            "\nPack your bags and get ready for your trip! 🧳 ",
+            style="bold color(226)",
+        )
+    else:
+        console.print(
+            "\nUnfortunately, your expenses "
+            "have exceeded your budget. ",
+            style="bold red",
+        )
 
 
 def google_doc(text):
