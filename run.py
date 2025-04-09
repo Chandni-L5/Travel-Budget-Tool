@@ -405,13 +405,13 @@ def exit_message(remaining_budget, duration):
     if remaining_budget_per_day > 0:
         console.print(
             "\nPack your bags and get ready for your trip! 🧳 ",
-            style="bold color(226)",
+            style="bold color(10)",
         )
     else:
         console.print(
             "\nUnfortunately, your expenses "
             "have exceeded your budget. ",
-            style="bold red",
+            style="bold color(196)",
         )
 
 
