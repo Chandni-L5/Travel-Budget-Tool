@@ -83,7 +83,9 @@ The user is then prompted to confirm whether the details provided in the followi
 
  The final stage displays the totals of all of the entered expenses. the statement also provides a value of how much money remains in your budget and how much this leaves the user for spending per day. This value is also displayed if there are negative values, and this is shown for reference to give the user an idea of how much more they may need to save before they can book that trip. 
 
- 
+ ![screenshot of final summary](/documentation/final_summary.jpg)
+
+ This is preceded with an explanation and link to the google doc, where a summary of the expenses per category and final summary is printed. The user is encouraged to copy and paste this summary for their own records. Finally the user is asked if they have finished viewing the Google Doc
 
 ### Future Features
 

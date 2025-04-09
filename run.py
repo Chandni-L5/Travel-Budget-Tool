@@ -371,8 +371,11 @@ def final_summary(budget, duration, total_expenses):
     google_doc(summary_text)
     while True:
         exit_choice = console.input(
-            "\n[color(166)]Have you finished viewing the Google Doc?"
-            "[/color(166)]\n"
+            (
+                "\n[color(166)]Have you finished viewing the Google Doc? "
+                "(All data will be erased after 'y' is selected)"
+            )
+            + "[/color(166)]\n"
             "\n[bold color(50)] (Y/N):[/bold color(50)] "
         ).strip().lower()
         if exit_choice == "y":
