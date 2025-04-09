@@ -117,28 +117,43 @@ There are a number of limitations currently to the programme. In future implemen
 ## Testing 
 ### Bugs 
 ### Validator Testing 
+The code has been run through the [CI Python Linter](https://pep8ci.herokuapp.com/) and no errors have been found.
+
+![Screenshot of Python linter](/documentation/python_linter.jpg)
 
 ## Deployment 
-* Render
+This project has been deployed using [Render](https://render.com/) following the [CI Render Tutorial](https://code-institute-students.github.io/deployment-docs/15-pp3-deploy/). 
+
+### Steps for Deployment: 
+1. Log in and activate your Render account
+2. Install your Render account to your Github profile to allow access to all repositories.
+3. Select to create a new 'Web service' and connect to the relevant repository.
+4. Create a name and ensure the settings are set for the closest region to you. Set the build command to ' pip install -r requirements.txt && npm install' and start command to ' node index.js'.
+5. Set up the environment variables relevant to the project and ensure the credentials JSON file in the IDE has been copied and pasted as a secret file to ensure personal details are kept private.
+6. Set the programme to Auto-Deploy, so that the project is deployed everytime a commit is pushed to the repository. This will ensure the programme is up to date.
+7. Select "Create Web Services" and wait for the deployment to complete.
 
 ## Credits
-### Code Used 
-### Content
 * [Rich Framework](https://rich.readthedocs.io/en/stable/index.html)
 * [Rich library tutorials](https://calmcode.io/course/rich/introduction)
 * [Rich README.md](https://github.com/textualize/rich/blob/master/README.md)
+* [PEP8 guide](https://peps.python.org/pep-0008/)
 * [Lucidchart](https://www.lucidchart.com/pages) - to map and plan the flow of the app
 * [Render](https://render.com/)
 * [Endgrate.com - blog](https://endgrate.com/blog/how-to-get-document-texts-with-the-google-docs-api-in-python) - used as guidance to link Google Docs API and to create function to print to the google doc.
 * [Google Workspace Guides](https://developers.google.com/workspace/docs/api/quickstart/python) - Guides used to enable API.
-### Media
 * [Internet Made Coder - youtube tutorial](https://www.youtube.com/watch?v=4TZ1K8EHT2M)
 * [pixegami - youtube tutorial](https://www.youtube.com/watch?v=HTD86h69PtE)
 * [pixegami - python-for-beginners repository](https://github.com/pixegami/python-for-beginners/tree/main)
-### Documentation and Testing
 * [Diffchecker](https://www.diffchecker.com/)
 * [Chatgpt](https://chatgpt.com/)
 * [CI Python Linter](https://pep8ci.herokuapp.com/)
 * [CI Render tutorial](https://code-institute-students.github.io/deployment-docs/03-render/)
+* [How to trade - Youtube - Google doc API tutorial](https://www.youtube.com/watch?v=j7JlI6IAdQ0)
+* [Jie Jenn - Youtube - Google Drive API tutorial](https://www.youtube.com/watch?v=9K2P2bWEd90&list=PL3JVwFmb_BnTamTxXbmlwpspYdpmaHdbz)
+* [Youtube - Google Workspace tutorial](https://www.youtube.com/watch?v=-dX-fWb3ogE)
+* [DevOps Journey - Youtube - Python Rich tutorial](https://www.youtube.com/watch?v=JrGFQp9njas)
+* [tinyurl](https://tinyurl.com/)
+* [befunky.com](https://www.befunky.com/dashboard/)
 
 ### Acknowledgements
