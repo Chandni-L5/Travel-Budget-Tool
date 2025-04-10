@@ -27,7 +27,7 @@ Once all the required information has been entered it is repeated back to the us
 
 The final results include the running total of expenses by category, the amount left from the budget after considering these expenses and also how much that would work out as remaining spend per day. Finally a message is displayed to the user dependant on the comparison between the calculated daily spend allowance against the amount initially inputted in the first set of questions. 
 
-A summary of the results are printed to a [Google document](https://docs.google.com/document/d/1ev4aBGg3904TWkGkpIIZq0NqTvKKHihuFNdtoBOZ9Rk/edit?usp=sharing) so the user is able to keep a record of their results to refer back to if required.
+A summary of the results are printed to a Google document so the user is able to keep a record of their results to refer back to if required.
 
 ## Features
 During the planning stages of my project, I utilized Lucidchart.com to brain storm and plan the algorithm which would be required to prepare for the flow of the programme.
@@ -71,11 +71,11 @@ Once the initial questions have been confirmed the next section is implemented. 
 
 The third question prompts the user to select the category that best fits the expense by entering a number between 1 and 4. The input field only accepts values within this range and will display an error message if an invalid number is entered.
 
-The user is then prompted to confirm whether the details provided in the following questions are correct. If 'y' is entered, the program continues; if 'n' is entered, the subsequent questions are repeated.
+A summary of the the expense is then displayed to the user and then prompts the user to confirm whether the details provided are correct. If 'y' is entered, the program continues; if 'n' is entered, the subsequent questions are repeated.
 
 ![screenshot of the category question and error message](/documentation/select_category.jpg)
 
- Once 'y' has been selected a summary of the expense is displayed and a table is presented to display the expenses per category. The loading graphic is displayed again before the expense summary is displayed. The user is then prompted if they wish to enter more expenses. As additional expenses are added, the summary updates to reflect the new totals per category.
+  The loading graphic is displayed again before the expense summary is displayed. The user is then prompted if they wish to enter more expenses. As additional expenses are added, the summary updates to reflect the new totals per category.
 
 ![screenshot of the expense summary](/documentation/expense_summary.jpg)
 

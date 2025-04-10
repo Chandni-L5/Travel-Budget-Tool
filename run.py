@@ -232,7 +232,7 @@ def subsequent_questions():
             )
 
 
-def track_expenses(budget, duration, document_id, user_uuid):
+def track_expenses(budget, duration, spending_money, document_id, user_uuid):
     """
     This function tracks the expenses
     """
@@ -258,7 +258,10 @@ def track_expenses(budget, duration, document_id, user_uuid):
         if not add_more_expenses():
             break
     google_doc_expense_summary(expense_totals, document_id, user_uuid)
-    final_summary(budget, duration, total_expenses, document_id, user_uuid)
+    final_summary(
+        budget, duration, spending_money,
+        total_expenses, document_id, user_uuid
+    )
 
 
 def display_added_expense(
@@ -320,7 +323,9 @@ def add_more_expenses():
             )
 
 
-def final_summary(budget, duration, total_expenses, document_id, user_uuid):
+def final_summary(
+    budget, duration, spending_money, total_expenses, document_id, user_uuid
+):
     """
     This function displays the final summary of the expenses and then appends
     the summary to Google Docs.
@@ -340,10 +345,10 @@ def final_summary(budget, duration, total_expenses, document_id, user_uuid):
         summary_text,
         style="color(226)",
     )
-    exit_message(remaining_budget, duration)
+    exit_message(remaining_budget, duration, spending_money)
     console.print(
         f"\nYour unique summary has been saved here: "
-        f"https://docs.google.com/document/d/{document_id}\n",
+        f"https://docs.google.com/document/d/{document_id}",
         style="bold color(51)",
     )
     console.print("")
@@ -425,7 +430,7 @@ def google_doc_expense_summary(expense_totals, document_id, user_uuid):
         table += f"{cat.ljust(25)} | {amount.rjust(15)}\n"
 
     table += "-" * line_length + "\n"
-    full_text = "\n" + header + table + f"\nUUID: {user_uuid}\n"
+    full_text = "\n" + header + table
     google_doc(full_text, document_id, user_uuid)
 
 
@@ -503,7 +508,7 @@ def main():
         "You can enter multiple expenses if you wish.\n",
         style="color(10)",
         )
-    track_expenses(budget, duration, document_id, user_uuid)
+    track_expenses(budget, duration, spending_money, document_id, user_uuid)
 
 
 main()
