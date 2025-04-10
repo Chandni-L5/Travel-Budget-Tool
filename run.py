@@ -483,6 +483,7 @@ def main():
     """
     Main function to run the programme
     """
+    clear_google_doc()
     console.print(welcome, style="bold #15E6E4", justify="center")
     begin = get_content("intro.txt")
     console.print(begin, style="color(195)")

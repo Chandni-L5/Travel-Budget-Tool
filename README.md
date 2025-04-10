@@ -99,7 +99,6 @@ The user is then prompted to confirm whether the details provided in the followi
 
 There are a number of limitations currently to the programme. In future implementations I would consider adding or amending the following: 
 
-* The google document updates at various stages throughout the programme, this creates an issue if the terminal is refreshed or restarted as the summaries may print to the document when not necessarily required by the user. A fix would need to be implemented to remove any prints if the terminal is restarted.
 * The instructions and explanations within the programme are a bit unclear or clunky, I would look at refining the content to make it more user friendly and easier to navigate.
 
 ## Technologies used 
@@ -174,6 +173,10 @@ The initial version of the programme, printed to the Google document every time 
 I decided to create a new function to wipe all the content in the google document on confirmation by the user at the end of the programme. 
 ![screenshot of clear_google_doc function](/documentation/clear_google_doc.png)
 ![screenshot of clear_google_doc message](/documentation/clear_doc.jpg)
+
+In addition another issue identified was that the google document updates at various stages throughout the programme, this creates an issue if the terminal is refreshed or restarted as the summaries may print to the document when not necessarily required by the user. 
+
+To fix this I run the function `clear_google_doc` function at the very beginning of the programme to ensure the document is cleared at the start.
 
 ### Validator Testing 
 The code has been run through the [CI Python Linter](https://pep8ci.herokuapp.com/) and no errors have been found.
