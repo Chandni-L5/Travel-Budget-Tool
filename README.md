@@ -11,9 +11,9 @@ The purpose of this programme is to assist a user in deciding if they have the f
 The programme is aimed at adults of all ages who are considering booking a holiday but unsure if their budget will allow for all the required expenses and also leave enough spending money at the end. 
 
 ### User Stories
-* "I'm planning my first trip and researching holiday options, but I'm unsure if my current savings will be enough to afford it."
-* "There are a lot of different expenses attributed to planning my next holiday and I want to use something that can help me organize and display the breakdown of the expenses"
-* "I'm not very good with calculations and just want to be able to input in all the amounts and get an itemized response that clearly explains if I have enough in my budget or not"
+* "As a first-time traveler, I’m planning my first trip and researching holiday options. However, I’m unsure if my current savings will be enough to cover the total cost. I need a tool that can help me assess my budget by comparing it to the estimated expenses of the trip, giving me clear picture into whether I can afford the trip or if I need to adjust my budget."
+* "As an organized traveler, there are multiple expenses involved in planning my next holiday, such as flights, accommodations, excursions and activities. I need a tool that helps me break down and categorize these expenses clearly, so I can easily organize my budget and make more informed decisions about my travel plans."
+* "As someone who struggles with calculations, I want to simply input all the amounts related to my trip and receive an itemized breakdown. I need a tool that clearly explains whether my budget is sufficient or not, making it easy for me to understand without needing to do complex calculations myself."
 
 #### User Goals 
 * Simple and straightforward questions
