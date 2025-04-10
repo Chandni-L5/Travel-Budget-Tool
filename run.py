@@ -357,13 +357,13 @@ def final_summary(budget, duration, total_expenses, document_id, user_uuid):
     )
 
 
-def exit_message(remaining_budget, duration):
+def exit_message(remaining_budget, duration, spending_money):
     """
     This function displays the final message and conclusion
     of the programme.
     """
     remaining_budget_per_day = remaining_budget / duration
-    if remaining_budget_per_day > 0:
+    if remaining_budget_per_day > spending_money:
         console.print(
             "\nPack your bags and get ready for your trip! 🧳 ",
             style="bold color(10)",
@@ -375,6 +375,8 @@ def exit_message(remaining_budget, duration):
             style="bold color(196)",
         )
 
+
+# Google Doc Functions
 
 def google_doc(text, document_id, user_uuid):
     """
@@ -475,6 +477,8 @@ def public_document(document_id):
         )
     return
 
+
+# Run programme
 
 def main():
     """
