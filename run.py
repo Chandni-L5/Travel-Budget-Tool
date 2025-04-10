@@ -219,6 +219,11 @@ def subsequent_questions():
                     style="bold red"
                 )
         expense = Expense(description, cost, category[selected_index])
+        expense_summary = (
+            f"\nYou have added an expense of £{expense.cost:,.2f} for "
+            f"{expense.description} under the category {expense.category}."
+        )
+        console.print(expense_summary, style="color(226) bold")
         if confirm():
             return expense
         else:
@@ -243,27 +248,30 @@ def track_expenses(budget, duration, document_id, user_uuid):
         expense_totals[expense.get_category()] += expense.cost
         total_expenses += expense.cost
 
-        display_added_expense(expense, expense_totals, document_id, user_uuid)
+        expense_summary = (
+            f"\nYou have added an expense of £{expense.cost:,.2f} for "
+            f"{expense.description} under the category {expense.category}."
+        )
+        display_added_expense(
+            expense_summary, expense, expense_totals, document_id, user_uuid
+        )
         if not add_more_expenses():
             break
     google_doc_expense_summary(expense_totals, document_id, user_uuid)
     final_summary(budget, duration, total_expenses, document_id, user_uuid)
 
 
-def display_added_expense(expense, expense_totals, document_id, user_uuid):
+def display_added_expense(
+            expense_summary, expense, expense_totals, document_id, user_uuid
+):
     """
     This function displays a summary of the expense added
     and also updates the running total per
     category
     """
-    expense_summary = (
-        f"\nYou have added an expense of £{expense.cost:,.2f} for "
-        f"{expense.description} under the category {expense.category}."
-    )
     console.rule("")
     console.print("")
     loading_widget()
-    console.print(expense_summary, style="color(226) bold")
     table = Table(
         title="\n[color(51)]Expense Summary[/color(51)]",
         box=box.ASCII_DOUBLE_HEAD
@@ -273,7 +281,11 @@ def display_added_expense(expense, expense_totals, document_id, user_uuid):
     for cat, total in expense_totals.items():
         table.add_row(f"{cat}", f"£{total:,.2f}", style="color(226)")
     console.print(table)
-    google_doc(expense_summary, document_id, user_uuid)
+    google_doc(
+        expense_summary,
+        document_id,
+        user_uuid
+    )
 
 
 def loading_widget():
