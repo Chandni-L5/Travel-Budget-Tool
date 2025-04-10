@@ -6,10 +6,9 @@ from rich import box
 import time
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-import json
-import os
 from google.oauth2 import service_account
 from expenses import Expense
+import uuid
 
 
 SCOPE = [
@@ -18,17 +17,12 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive",
 ]
 
-CREDS_DICT = json.loads(os.environ['GOOGLE_CREDS'])
-CREDS = service_account.Credentials.from_service_account_info(
-    CREDS_DICT,
+CREDS = service_account.Credentials.from_service_account_file(
+    "creds.json",
     scopes=SCOPE,
 )
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-DOCUMENT_ID = "1ev4aBGg3904TWkGkpIIZq0NqTvKKHihuFNdtoBOZ9Rk"
 DOCS_SERVICE = build("docs", "v1", credentials=SCOPED_CREDS)
-creds = service_account.Credentials.from_service_account_info(
-    CREDS_DICT, scopes=SCOPE
-)
 
 
 console = Console()
@@ -116,7 +110,7 @@ def initial_questions():
     return budget, duration, spending_money
 
 
-def display_initial():
+def display_initial(document_id, user_uuid):
     """
     This function displays the initial travel details
     and asks the user to confirm them.
@@ -142,7 +136,7 @@ def display_initial():
         console.print(display_initial_text, style="color(226) bold")
 
         if confirm():
-            google_doc(display_initial_text)
+            google_doc(display_initial_text, document_id, user_uuid)
             return budget, duration, spending_money
         else:
             console.print("\nLet's try again.")
@@ -233,7 +227,7 @@ def subsequent_questions():
             )
 
 
-def track_expenses(budget, duration):
+def track_expenses(budget, duration, document_id, user_uuid):
     """
     This function tracks the expenses
     """
@@ -249,14 +243,14 @@ def track_expenses(budget, duration):
         expense_totals[expense.get_category()] += expense.cost
         total_expenses += expense.cost
 
-        display_added_expense(expense, expense_totals)
+        display_added_expense(expense, expense_totals, document_id, user_uuid)
         if not add_more_expenses():
             break
-    google_doc_expense_summary(expense_totals)
-    final_summary(budget, duration, total_expenses)
+    google_doc_expense_summary(expense_totals, document_id, user_uuid)
+    final_summary(budget, duration, total_expenses, document_id, user_uuid)
 
 
-def display_added_expense(expense, expense_totals):
+def display_added_expense(expense, expense_totals, document_id, user_uuid):
     """
     This function displays a summary of the expense added
     and also updates the running total per
@@ -279,7 +273,7 @@ def display_added_expense(expense, expense_totals):
     for cat, total in expense_totals.items():
         table.add_row(f"{cat}", f"£{total:,.2f}", style="color(226)")
     console.print(table)
-    google_doc(expense_summary)
+    google_doc(expense_summary, document_id, user_uuid)
 
 
 def loading_widget():
@@ -314,7 +308,7 @@ def add_more_expenses():
             )
 
 
-def final_summary(budget, duration, total_expenses):
+def final_summary(budget, duration, total_expenses, document_id, user_uuid):
     """
     This function displays the final summary of the expenses and then appends
     the summary to Google Docs.
@@ -336,33 +330,12 @@ def final_summary(budget, duration, total_expenses):
     )
     exit_message(remaining_budget, duration)
     console.print(
-        "\nA summary of your results has been added to Google Doc "
-        "successfully - Copy and paste this link into your browser to view "
-        "your summary - https://tinyurl.com/2e77c76c \n"
-        "\nPlease consider copy and pasting the summary into a "
-        "separate document for your records.\n",
-        style="color(51)",
+        f"\nYour unique summary has been saved here: "
+        f"https://docs.google.com/document/d/{document_id}\n",
+        style="bold color(51)",
     )
     console.print("")
-    google_doc(summary_text)
-    while True:
-        exit_choice = console.input(
-            (
-                "\n[color(166)]Have you finished viewing the Google Doc? "
-                "(All data will be erased after 'y' is selected)"
-            )
-            + "[/color(166)]\n"
-            "\n[bold color(50)] (Y/N):[/bold color(50)] "
-        ).strip().lower()
-        if exit_choice == "y":
-            clear_google_doc()
-            break
-        else:
-            error_console.print(
-                "\nProgram will not exit until you have finished viewing the "
-                "Google Doc.",
-                style="bold red"
-            )
+    google_doc(summary_text, document_id, user_uuid)
     console.print("")
     console.print(
         "\nThank you for using the Travel Budget Planner!"
@@ -391,13 +364,14 @@ def exit_message(remaining_budget, duration):
         )
 
 
-def google_doc(text):
+def google_doc(text, document_id, user_uuid):
     """
-    This function prints the summary to the google doc
+    This function prints the summary to a google doc
+    using the provided document ID
     """
     document = DOCS_SERVICE.documents().get(
-        documentId=DOCUMENT_ID
-    ).execute()
+        documentId=document_id
+        ).execute()
     document_length = document.get(
         "body", {}
         ).get("content", [])[-1]["endIndex"]
@@ -408,19 +382,19 @@ def google_doc(text):
                     "location": {
                         "index": document_length - 1
                         },
-                    "text": text + "\n",
+                    "text": f"{text}\n",
                 }
             }
         ]
         DOCS_SERVICE.documents().batchUpdate(
-            documentId=DOCUMENT_ID,
+            documentId=document_id,
             body={"requests": requests}
         ).execute()
     except HttpError as error:
         print(f"An error occurred: {error}")
 
 
-def google_doc_expense_summary(expense_totals):
+def google_doc_expense_summary(expense_totals, document_id, user_uuid):
     """
     prints readable text table to Google Docs
     """
@@ -437,8 +411,8 @@ def google_doc_expense_summary(expense_totals):
         table += f"{cat.ljust(25)} | {amount.rjust(15)}\n"
 
     table += "-" * line_length + "\n"
-    full_text = "\n" + header + table + "\n"
-    google_doc(full_text)
+    full_text = "\n" + header + table + f"\nUUID: {user_uuid}\n"
+    google_doc(full_text, document_id, user_uuid)
 
 
 def google_doc_final_summary(total_spent, remaining_budget, updated_daily):
@@ -450,45 +424,56 @@ def google_doc_final_summary(total_spent, remaining_budget, updated_daily):
     google_doc(summary)
 
 
-def clear_google_doc():
+def create_new_google_doc():
     """
-    This function clears the Google Doc
+    This function creates a new Google Doc whilst returning its
+    document ID and UUID. The document is also made public
+    so that anyone can access it.
+    """
+    user_uuid = str(uuid.uuid4())
+    doc_title = f"Travel Budget Planner - {user_uuid}"
+    doc = DOCS_SERVICE.documents().create(
+        body={"title": doc_title}
+    ).execute()
+    document_id = doc.get("documentId")
+    public_document(document_id)
+    return user_uuid, document_id
+
+
+def public_document(document_id):
+    """
+    This function makes the Google Doc public
+    so that anyone can access it.
     """
     try:
-        document = DOCS_SERVICE.documents().get(
-            documentId=DOCUMENT_ID
-        ).execute()
-        document_length = document.get(
-            "body", {}
-            ).get("content", [])[-1]["endIndex"]
-        requests = [
-            {
-                "deleteContentRange": {
-                    "range": {
-                        "startIndex": 1,
-                        "endIndex": document_length - 1
-                    }
-                }
-            }
-        ]
-        DOCS_SERVICE.documents().batchUpdate(
-            documentId=DOCUMENT_ID,
-            body={"requests": requests}
+        drive_service = build("drive", "v3", credentials=SCOPED_CREDS)
+        permission = {
+            "type": "anyone",
+            "role": "reader",
+        }
+        drive_service.permissions().create(
+            fileId=document_id,
+            body=permission,
+            fields="id"
         ).execute()
     except HttpError as error:
-        print(f"An error occurred whilst clearing the document {error}")
+        error_console.print(
+            f"\nAn error occurred: {error}",
+            style="bold red"
+        )
+    return
 
 
 def main():
     """
     Main function to run the programme
     """
-    clear_google_doc()
+    user_uuid, document_id = create_new_google_doc()
     console.print(welcome, style="bold #15E6E4", justify="center")
     begin = get_content("intro.txt")
     console.print(begin, style="color(195)")
     console.rule("")
-    budget, duration, spending_money = display_initial()
+    budget, duration, spending_money = display_initial(document_id, user_uuid)
     console.rule("")
     console.print(
         (
@@ -502,7 +487,7 @@ def main():
         "You can enter multiple expenses if you wish.\n",
         style="color(10)",
         )
-    track_expenses(budget, duration)
+    track_expenses(budget, duration, document_id, user_uuid)
 
 
 main()

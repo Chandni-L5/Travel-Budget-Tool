@@ -227,7 +227,6 @@ This project has been deployed using [Render](https://render.com/) following the
 7. Select "Create Web Services" and wait for the deployment to complete.
 
 ## Credits
-![screenshot](/documentation/pound_error_1.jpg)
 * [*Rich* Framework](https://rich.readthedocs.io/en/stable/index.html)
 * [*Rich* library tutorials](https://calmcode.io/course/rich/introduction)
 * [*Rich* README.md](https://github.com/textualize/rich/blob/master/README.md)
