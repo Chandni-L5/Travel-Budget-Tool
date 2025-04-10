@@ -102,7 +102,8 @@ In future implementations I would consider adding or amending the following:
 * [Lucidchart](https://www.lucidchart.com/pages) - to map and plan the flow of the app
 * [Github](https://github.com/) - For version control 
 * VS Code - used as the code editor and to save files
-* [*Rich* Library and Documentation](https://rich.readthedocs.io/en/stable/index.html)
+* [*Rich* Library and Documentation](https://rich.readthedocs.io/en/stable/index.html) - The framework has been utilized in various ways to enhance the visual appeal of the tool. The goal behind using this framework is to improve the user experience and keep users engaged while interacting with the tool.
+* [Google document and Google drive API](https://developers.google.com/workspace/docs/api/reference/rest) - To add value to the tool, a summary of the calculations and inputted data is provided in the form of a Google document receipt.
 * [chatgpt.com](https://chatgpt.com/) - used to help troubleshoot when encountering bugs in the system
 
 ### Code used 
