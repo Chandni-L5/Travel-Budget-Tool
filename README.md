@@ -84,20 +84,14 @@ A summary of the the expense is then displayed to the user and then prompts the 
  The final stage displays the totals of all of the entered expenses. the statement also provides a value of how much money remains in your budget and how much this leaves the user for spending per day. This value is also displayed if there are negative values, and this is shown for reference to give the user an idea of how much more they may need to save before they can book that trip. 
 
  ![screenshot of final summary](/documentation/final_summary.jpg)
-![screenshot of final question](/documentation/clear_doc.jpg)
- This is preceded with an explanation and link to the google doc, where a summary of the expenses per category and final summary is printed. The user is encouraged to copy and paste this summary for their own records.
+
+ This is preceded with an explanation and link to the google doc, where a summary of the expenses per category and final summary is printed. The programme ends with a concluding goodbye statement.
  
  ![screenshot of google doc](/documentation/google_doc.jpg)
 
-  Finally the user is asked if they have finished viewing the Google Doc. If 'n' is selected, the user is informed that the programme cannot end until 'y' is selected. This is because once 'y' is selected the google document will be wiped, ready for the next user.
-
-  ![screenshot of final question](/documentation/final_message.jpg)
-
-  Once 'y' has been selected the concluding message is presented and the programme ends.
-
 ### Future Features
 
-There are a number of limitations currently to the programme. In future implementations I would consider adding or amending the following: 
+In future implementations I would consider adding or amending the following: 
 
 * The instructions and explanations within the programme are a bit unclear or clunky, I would look at refining the content to make it more user friendly and easier to navigate.
 
@@ -160,23 +154,14 @@ To fix this I added an additional argument `show_symbol` with the default set to
 
 ![screenshot of get_input function](/documentation/get_input_func.jpg)
 
-#### Google Document hyperlink
-When I first set up the project in VS Code, I created a hyperlink to the document via the terminal. However, after deploying the project to Render, the link no longer functioned as expected. I discussed the issue with my mentor, Moritz, who explained that this kind of functionality isn't supported in an external terminal in the same way, and suggested exploring alternative ways to share the link.
-
-At first, I considered using the direct 'share link' from the Google Document, but the URL was quite long and didn’t look visually appealing within the program. To improve the appearance, I used [tinyurl.com](https://tinyurl.com/) to create a shortened version of the link. I also added a brief instruction prompting users to copy and paste the URL into a browser in order to access the Google Doc.
-
-#### Clearing the Google Document 
+#### Google Document 
 When running through the progress of my project with my Mentor Moritz, he made some suggestions to improve the use of the Google Document. 
 
-The initial version of the programme, printed to the Google document every time the programme was run. This meant that multiple entries were logged and there was no clear way to identify which results related to which user. 
+The initial version of the programme, printed to the Google document every time the programme was run. This meant that multiple entries were logged and there was no clear way to identify which results related to which user. A fix was put in place to wipe all the content in the google document on confirmation by the user at the end of the programme. 
 
-I decided to create a new function to wipe all the content in the google document on confirmation by the user at the end of the programme. 
-![screenshot of clear_google_doc function](/documentation/clear_google_doc.png)
-![screenshot of clear_google_doc message](/documentation/clear_doc.jpg)
+This presented another issue - the google document updates at various stages throughout the programme, this creates an issue if the terminal is refreshed or restarted as the summaries may print to the document when not necessarily required by the user. In addition as the results printed to a single document it allows multiple users to use the programme at the same time and confuse the printed messages to the google document. 
 
-In addition another issue identified was that the google document updates at various stages throughout the programme, this creates an issue if the terminal is refreshed or restarted as the summaries may print to the document when not necessarily required by the user. 
-
-To fix this I run the function `clear_google_doc` function at the very beginning of the programme to ensure the document is cleared at the start.
+After discussing this again with my Mentor, he suggested to implement the use of UUID. After consulting Python documentation I created a new function to create a new google document for each user which is linked to their unique ID. This means that each time the programme is run a new document is created and that users results are linked to that same user ID. 
 
 ### Validator Testing 
 The code has been run through the [CI Python Linter](https://pep8ci.herokuapp.com/) and no errors have been found.
@@ -235,6 +220,9 @@ This project has been deployed using [Render](https://render.com/) following the
 * [Render](https://render.com/)
 * [Endgrate.com - blog](https://endgrate.com/blog/how-to-get-document-texts-with-the-google-docs-api-in-python) - used as guidance to link Google Docs API and to create function to print to the google doc.
 * [Google Workspace Guides](https://developers.google.com/workspace/docs/api/quickstart/python) - Guides used to enable API.
+* [Creating a new google document tutorial](https://ericmjl.github.io/blog/2023/3/8/how-to-automate-the-creation-of-google-docs-with-python/)
+* [UUID documentation](https://docs.python.org/3/library/uuid.html)
+* [UUID instructions](https://www.uuidgenerator.net/dev-corner/python)
 * [Internet Made Coder - youtube tutorial](https://www.youtube.com/watch?v=4TZ1K8EHT2M)
 * [pixegami - youtube tutorial](https://www.youtube.com/watch?v=HTD86h69PtE)
 * [pixegami - python-for-beginners repository](https://github.com/pixegami/python-for-beginners/tree/main)
@@ -246,7 +234,6 @@ This project has been deployed using [Render](https://render.com/) following the
 * [Jie Jenn - Youtube - Google Drive API tutorial](https://www.youtube.com/watch?v=9K2P2bWEd90&list=PL3JVwFmb_BnTamTxXbmlwpspYdpmaHdbz)
 * [Youtube - Google Workspace tutorial](https://www.youtube.com/watch?v=-dX-fWb3ogE)
 * [DevOps Journey - Youtube - Python Rich tutorial](https://www.youtube.com/watch?v=JrGFQp9njas)
-* [tinyurl](https://tinyurl.com/)
 * [befunky.com](https://www.befunky.com/dashboard/)
 
 ### Acknowledgements
