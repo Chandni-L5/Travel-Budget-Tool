@@ -117,6 +117,15 @@ Once the programme was completed I carried out manual testing as well asking a f
 
 The fixes put in place are explained in the next section.
 
+### Input validation
+![Input validation testing table](/documentation/error_testing.png)
+I manually entered the incorrect input type for each question asked to ensure an error message is displayed and the user is prompted to answer again. 
+
+### Calculation Testing 
+I manually tested the programme many times entering different values to ensure all the calculations were working correctly. Once bug was identified in the final calculation in the statement 'You can spend XXX per day'. 
+
+The original calculation did not compare the result the the input made in the third question of the initial questions. This was easily corrected to compare the result against that number and would govern which final statement is presented before the programme ends. 
+
 ### Bugs 
 
 #### Category and table bug
