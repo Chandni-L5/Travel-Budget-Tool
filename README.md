@@ -6,9 +6,9 @@ The user inputs required information for the tool to calculate the total cost, r
 [Click here to view the programme](https://travel-budget-tool.onrender.com)
 
 ## User Experience
-The purpose of this programme is to assist a user in deciding if they have the finances in place to book a holiday abroad. Based on the responses it clarified and repeats back to the user the relevant information to decided if they have enough within their budget to go ahead and book or to take some time to save up a bit more. 
+This program is designed to help users determine whether they have the necessary finances to book a holiday abroad. By guiding users through a series of questions, it gathers and confirms key financial details, then summarizes the information to help them decide whether their current budget is sufficient to cover all holiday expenses—including travel, accommodation, and spending money—or if they should wait and save a bit more.
 
-The programme is aimed at adults of all ages who are considering booking a holiday but unsure if their budget will allow for all the required expenses and also leave enough spending money at the end. 
+The program is suitable for adults of all ages who are thinking about booking a holiday but are unsure whether their budget can comfortably cover the full cost.
 
 ### User Stories
 * "As a first-time traveler, I’m planning my first trip and researching holiday options. However, I’m unsure if my current savings will be enough to cover the total cost. I need a tool that can help me assess my budget by comparing it to the estimated expenses of the trip, giving me clear picture into whether I can afford the trip or if I need to adjust my budget."
@@ -178,15 +178,7 @@ The code has been run through the [CI Python Linter](https://pep8ci.herokuapp.co
 
 ![Screenshot of Python linter](/documentation/python_linter.jpg)
 
-### User Experience
-#### User Stories
-**"I'm planning my first trip and researching holiday options, but I'm unsure if my current savings will be enough to afford it."**
-
-**"There are a lot of different expenses attributed to planning my next holiday and I want to use something that can help me organize and display the breakdown of the expenses"**
-
-**"I'm not very good with calculations and just want to be able to input in all the amounts and get an itemized response that clearly explains if I have enough in my budget or not"**
-
-#### User Goals 
+### User Goals 
 **Simple and straightforward questions** 
 
 The main questions have been kept to a minimum of three per section, not including the confirmation questions. 
